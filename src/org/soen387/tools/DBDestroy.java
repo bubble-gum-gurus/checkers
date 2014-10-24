@@ -6,6 +6,7 @@ import org.dsrg.soenea.service.threadLocal.DbRegistry;
 import org.soen387.app.AbstractPageController;
 import org.soen387.domain.checkerboard.tdg.CheckerBoardTDG;
 import org.soen387.domain.model.checkerboard.GameStatus;
+import org.soen387.domain.user.tdg.UserTDG;
 
 public class DBDestroy {
 
@@ -13,7 +14,7 @@ public class DBDestroy {
 		AbstractPageController.setupDb();
 		try {
 			CheckerBoardTDG.dropTable();
-			
+			UserTDG.dropTable();
 			DbRegistry.getDbConnection();
 			
 		} catch (SQLException e) {
