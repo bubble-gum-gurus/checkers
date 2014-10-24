@@ -10,17 +10,18 @@ import org.dsrg.soenea.service.threadLocal.DbRegistry;
 
 public class CheckerBoardTDG {
 	public static final String TABLE_NAME = "CheckerBoard";
-	public static final String COLUMNS = "id, version, status, pieces, first_player, second_player, current_player ";
+	public static final String COLUMNS = "version, status, pieces, first_player, second_player, current_player ";
 	public static final String TRUNCATE_TABLE = "TRUNCATE TABLE  " + TABLE_NAME + ";";
 	public static final String DROP_TABLE = "DROP TABLE  " + TABLE_NAME + ";";
 	public static final String CREATE_TABLE ="CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" 
-			+ "id BIGINT, "
+			+ "id BIGINT NOT NULL AUTO_INCREMENT, "
 			+ "version int, "
 			+ "status int, "
 			+ "first_player BIGINT, "
 			+ "second_player BIGINT, "
 			+ "current_player BIGINT, "
-			+ "pieces CHAR(64)"
+			+ "pieces CHAR(64), "
+			+ "PRIMARY KEY (id)"
 			+ ");";
 
 	public static final String UPDATE = "UPDATE " + TABLE_NAME + " "
@@ -50,18 +51,17 @@ public class CheckerBoardTDG {
 	
 	
 	public static final String INSERT = "INSERT INTO " + TABLE_NAME + " (" + COLUMNS + ") "
-			+ "VALUES (?,?,?,?,?,?,?);";
+			+ "VALUES (?,?,?,?,?,?);";
 	
-	public static int insert(long id, int version, int status, String pieces, long first, long second, long current) throws SQLException {
+	public static int insert(int version, int status, String pieces, long first, long second, long current) throws SQLException {
 		Connection con = DbRegistry.getDbConnection();
 		PreparedStatement ps = con.prepareStatement(INSERT);
-		ps.setLong(1,id);
-		ps.setInt(2,version);
-		ps.setInt(3,status);
-		ps.setString(4,pieces);
-		ps.setLong(5, first);
-		ps.setLong(6, second);
-		ps.setLong(7, current);
+		ps.setInt(1,version);
+		ps.setInt(2,status);
+		ps.setString(3,pieces);
+		ps.setLong(4, first);
+		ps.setLong(5, second);
+		ps.setLong(6, current);
 		System.out.println(ps.toString());
 		return ps.executeUpdate();
 	}
@@ -89,7 +89,7 @@ public class CheckerBoardTDG {
 		return ps.executeUpdate();
 	}
 	
-	public static final String FIND_ID = "SELECT " + COLUMNS + " FROM " + TABLE_NAME + " WHERE id=?";
+	public static final String FIND_ID = "SELECT * FROM " + TABLE_NAME + " WHERE id=?";
 	public static ResultSet find(long id) throws SQLException {
 		Connection con = DbRegistry.getDbConnection();
 		PreparedStatement ps = con.prepareStatement(FIND_ID);
@@ -97,7 +97,7 @@ public class CheckerBoardTDG {
 		return ps.executeQuery();
 	}
 	
-	public static final String FIND_ALL = "SELECT " + COLUMNS + " FROM " + TABLE_NAME + ";";
+	public static final String FIND_ALL = "SELECT * FROM " + TABLE_NAME + ";";
 	public static ResultSet findAll() throws SQLException {
     	Connection con = DbRegistry.getDbConnection();
 		PreparedStatement ps = con.prepareStatement(FIND_ALL);
