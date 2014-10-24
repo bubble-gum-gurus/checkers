@@ -45,7 +45,7 @@ public class UserTDG {
 		Connection con = DbRegistry.getDbConnection();
 		Statement update = con.createStatement();
 		update.execute(TRUNCATE_TABLE);
-		update = con.createStatement();
+		update = con.createStatement(); 
 		update.execute(DROP_TABLE);
 	}
 	
@@ -65,7 +65,37 @@ public class UserTDG {
 		return ps.executeUpdate();
 	}
 	
-	public static final String FIND_ALL = "SELECT " + COLUMNS + " FROM " + TABLE_NAME + ";";
+	public static int update(long id, int version, String first_name, String last_name, String email, String username) throws SQLException {
+		Connection con = DbRegistry.getDbConnection();
+		PreparedStatement ps = con.prepareStatement(UPDATE);
+		ps.setLong(1, id);
+		ps.setInt(2, version);
+		ps.setString(3, first_name);
+		ps.setString(4, last_name);
+		ps.setString(5, email);
+		ps.setString(6, username);
+		System.out.println(ps.toString());
+		return ps.executeUpdate();
+	}
+	
+	public static int delete(long id, int version) throws SQLException {
+		Connection con = DbRegistry.getDbConnection();
+		PreparedStatement ps = con.prepareStatement(DELETE);
+		ps.setLong(1, id);
+		ps.setInt(2, version);
+		System.out.println(ps.toString());
+		return ps.executeUpdate();
+	}
+	
+	public static final String FIND_ID = "SELECT * FROM " + TABLE_NAME + " WHERE id=?;";
+	public static ResultSet find(long id) throws SQLException {
+		Connection con = DbRegistry.getDbConnection();
+		PreparedStatement ps = con.prepareStatement(FIND_ID);
+		ps.setLong(1, id);
+		return ps.executeQuery();
+	}
+	
+	public static final String FIND_ALL = "SELECT * FROM " + TABLE_NAME + ";";
 	public static ResultSet findAll() throws SQLException {
     	Connection con = DbRegistry.getDbConnection();
 		PreparedStatement ps = con.prepareStatement(FIND_ALL);
