@@ -51,6 +51,7 @@ public class CheckerBoardTDG {
 	
 	public static final String INSERT = "INSERT INTO " + TABLE_NAME + " (" + COLUMNS + ") "
 			+ "VALUES (?,?,?,?,?,?,?);";
+	
 	public static int insert(long id, int version, int status, String pieces, long first, long second, long current) throws SQLException {
 		Connection con = DbRegistry.getDbConnection();
 		PreparedStatement ps = con.prepareStatement(INSERT);
@@ -63,6 +64,37 @@ public class CheckerBoardTDG {
 		ps.setLong(7, current);
 		System.out.println(ps.toString());
 		return ps.executeUpdate();
+	}
+	
+	public static int delete(long id, int version) throws SQLException {
+		Connection con = DbRegistry.getDbConnection();
+		PreparedStatement ps = con.prepareStatement(DELETE);
+		ps.setLong(1, id);
+		ps.setInt(2, version);
+		System.out.println(ps.toString());
+		return ps.executeUpdate();
+	}
+	
+	public static int update(long id, int version, int status, String pieces, long first, long second, long current) throws SQLException {
+		Connection con = DbRegistry.getDbConnection();
+		PreparedStatement ps = con.prepareStatement(UPDATE);
+		ps.setLong(1,id);
+		ps.setInt(2, version);
+		ps.setInt(3, status);
+		ps.setString(4, pieces);
+		ps.setLong(5, first);
+		ps.setLong(6,  second);
+		ps.setLong(7, current);
+		System.out.println(ps.toString());
+		return ps.executeUpdate();
+	}
+	
+	public static final String FIND_ID = "SELECT " + COLUMNS + " FROM " + TABLE_NAME + " WHERE id=?";
+	public static ResultSet find(long id) throws SQLException {
+		Connection con = DbRegistry.getDbConnection();
+		PreparedStatement ps = con.prepareStatement(FIND_ID);
+		ps.setLong(1, id);
+		return ps.executeQuery();
 	}
 	
 	public static final String FIND_ALL = "SELECT " + COLUMNS + " FROM " + TABLE_NAME + ";";
