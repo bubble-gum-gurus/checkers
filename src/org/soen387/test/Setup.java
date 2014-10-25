@@ -14,7 +14,7 @@ public class Setup {
 		try {
 			CheckerBoardTDG.createTable();
 			
-			CheckerBoardTDG.insert(1, 1, GameStatus.Ongoing.getId(), 
+			CheckerBoardTDG.insert(1, GameStatus.Ongoing.getId(), 
 					"b b b b  b b b bb b b b                  r r r rr r r r  r r r r", 
 					1, 2, 1);
 			//Ample time to look at your db for changes if we're not doing transactions
