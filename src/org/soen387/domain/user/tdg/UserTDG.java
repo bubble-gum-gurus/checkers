@@ -86,6 +86,15 @@ public class UserTDG {
 		return ps.executeQuery();
 	}
 	
+	public static final String FIND_USER = "SELECT * FROM " + TABLE_NAME + " WHERE username=? AND password=?;";
+	public static ResultSet find(String username, String password) throws SQLException{
+		Connection con = DbRegistry.getDbConnection();
+		PreparedStatement ps = con.prepareStatement(FIND_USER);
+		ps.setString(1, username);
+		ps.setString(2, password);
+		return ps.executeQuery();
+	}
+	
 	public static final String FIND_ALL = "SELECT * FROM " + TABLE_NAME + ";";
 	public static ResultSet findAll() throws SQLException {
     	Connection con = DbRegistry.getDbConnection();

@@ -15,6 +15,7 @@ public class UserDataMapper {
 		    throws SQLException {
 		    ArrayList<User> l = new ArrayList<User>();
 		    while(rs.next()) {
+		    	long id = rs.getLong("id");
 		    	l.add(new User(rs.getLong("id"), 
 		    			rs.getInt("version"), 
 		    			rs.getString("username"),
@@ -26,6 +27,16 @@ public class UserDataMapper {
 	public static User find(long id) throws MapperException {
 		try {
 			ResultSet rs = UserTDG.find(id);
+			User u = buildCollection(rs).get(0);
+			return u;
+		} catch (SQLException e) {
+			throw new MapperException(e);
+		}
+	}
+	
+	public static User find(String username, String password) throws MapperException {
+		try {
+			ResultSet rs = UserTDG.find(username, password);
 			User u = buildCollection(rs).get(0);
 			return u;
 		} catch (SQLException e) {
