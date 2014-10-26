@@ -4,7 +4,7 @@ import java.awt.Point;
 
 import org.soen387.domain.model.player.Player;
 
-public class CheckerBoard {
+public class CheckerBoard implements ICheckerBoard {
 
 	public CheckerBoard(long id, int version, GameStatus status,
 			char[][] pieces, Player firstPlayer, Player secondPlayer,
