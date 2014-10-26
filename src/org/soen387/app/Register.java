@@ -17,7 +17,7 @@ import org.soen387.domain.model.user.User;
 /**
  * Servlet implementation class ListUsers
  */
-@WebServlet("/LogIn")
+@WebServlet("/Register")
 
 
 public class LogIn extends AbstractPageController implements Servlet {

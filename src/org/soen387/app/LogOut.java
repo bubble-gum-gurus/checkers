@@ -17,10 +17,10 @@ import org.soen387.domain.model.user.User;
 /**
  * Servlet implementation class ListUsers
  */
-@WebServlet("/LogIn")
+@WebServlet("/LogOut")
 
 
-public class LogIn extends AbstractPageController implements Servlet {
+public class LogOut extends AbstractPageController implements Servlet {
 	private static final long serialVersionUID = 1L;
        
     /**
