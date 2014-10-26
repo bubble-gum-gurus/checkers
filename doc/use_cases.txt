@@ -1,0 +1,121 @@
+1. Log In
+
+<checkers>
+<status>success</status>
+<player firstName="Stuart" lastName="Thiel" email="sthiel@encs.concordia.ca" id="1" version="1">
+ <user username="sthiel" id="1"/>
+</player>
+</checkers>
+
+2. Log Out
+
+<checkers>
+<status>success</status>
+</checkers>
+
+3. Register User
+
+<checkers>
+<status>success</status>
+<player firstName="Stuart" lastName="Thiel" email="sthiel@encs.concordia.ca" id="1" version="1">
+ <user username="sthiel" id="1" version="1">
+</player>
+</checkers>
+
+4. List Users
+
+<checkers>
+<status>success</status>
+<players>
+<player firstName="Stuart" lastName="Thiel" email="sthiel@encs.concordia.ca" id="1" version="1" />
+ <user username="sthiel" id="1" version="1">
+</player>
+<player firstName="Chuck" lastName="Norries" email="tearscurecancer@gmail.com" id="2" version="1" />
+ <user username="chuck" id="2" version="1">
+</player>
+<player firstName="James" lastName="Bond" email="DoubleOhSeven@yahoo.co.uk" id="3" version="1" />
+ <user username="jamesjamesbond" id="3" version="1">
+</player>
+</players>
+</checkers>
+
+5. View User Stats
+
+<checkers>
+<status>success</status>
+<player firstName="Stuart" lastName="Thiel" email="sthiel@encs.concordia.ca" id="1" version="1">
+ <user username="sthiel" id="1" version="1">
+ <games>
+  <game id="1" status="0">
+  <firstPlayer refid="1" />
+  <secondPlayer refid="2" />
+  <currentPlayer refid="1" />
+  </game>
+  <game id="2" status="1">
+  <firstPlayer refid="1" />
+  <secondPlayer refid="2" />
+  <currentPlayer refid="1" />
+  </game>
+ </games>
+</player>
+</checkers>
+
+
+6. Challenge User
+
+
+<checkers>
+<status>success</status>
+	<challenge status="0" id="3" version="1">
+	<challenger refid="1" />
+	<challengee refid="3" />
+</challenge>
+</checkers>
+
+
+
+7. Respond to User Challenge
+
+
+
+<checkers>
+<status>success</status>
+<challenge status="2" id="3" version="2">
+<challenger refid="1" />
+<challengee refid="3" />
+</challenge>
+</checkers>
+
+
+8. List Games
+
+
+<checkers>
+<status>success</status>
+ <games>
+  <game id="1" version="1" status="0">
+  <firstPlayer refid="1" />
+  <secondPlayer refid="2" />
+  <currentPlayer refid="1" />
+  </game>
+  <game id="1" version="32" status="1">
+  <firstPlayer refid="1" />
+  <secondPlayer refid="2" />
+  <currentPlayer refid="1" />
+  </game>
+ </games>
+</checkers>
+
+
+9. View Game
+
+
+<checkers>
+<status>success</status>
+ <game id="1" status="1">
+  <firstPlayer refid="1" />
+  <secondPlayer refid="2" />
+  <currentPlayer refid="1" />
+  <pieces>b b b b  b b b bb b b b                  r r r rr r r r  r r r r</pieces>
+ </game>
+</checkers>
