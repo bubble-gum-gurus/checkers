@@ -18,6 +18,7 @@ import org.soen387.domain.model.user.User;
  * Servlet implementation class ListUsers
  */
 @WebServlet("/ListUsers")
+
 public class ListUsers extends AbstractPageController implements Servlet {
 	private static final long serialVersionUID = 1L;
        

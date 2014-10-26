@@ -20,7 +20,7 @@ import org.soen387.domain.model.user.User;
 @WebServlet("/Register")
 
 
-public class LogIn extends AbstractPageController implements Servlet {
+public class Register extends AbstractPageController implements Servlet {
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -44,9 +44,11 @@ public class LogIn extends AbstractPageController implements Servlet {
 		
 		try {
 					
-			request.setAttribute("username", username);
-			request.setAttribute("password", username);
-			request.getRequestDispatcher("/WEB-INF/jsp/xml/LogIn.jsp").forward(request, response);
+			User user = new User();
+			UserDataMapper.create(user);
+			Player player = new Player(user);
+			
+			request.getRequestDispatcher("/WEB-INF/jsp/xml/Register.jsp").forward(request, response);
 		} catch (MapperException e) {
 			e.printStackTrace();
 		}

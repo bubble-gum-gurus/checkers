@@ -44,9 +44,8 @@ public class LogOut extends AbstractPageController implements Servlet {
 		
 		try {
 					
-			request.setAttribute("username", username);
-			request.setAttribute("password", username);
-			request.getRequestDispatcher("/WEB-INF/jsp/xml/LogIn.jsp").forward(request, response);
+			session=request.getSession(false);
+			request.getRequestDispatcher("/WEB-INF/jsp/xml/LogOut.jsp").forward(request, response);
 		} catch (MapperException e) {
 			e.printStackTrace();
 		}

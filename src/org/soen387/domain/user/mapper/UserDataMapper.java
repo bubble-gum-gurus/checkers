@@ -52,4 +52,8 @@ public class UserDataMapper {
             throw new MapperException(e);
         }
 	}
+	
+	public static User create(User user) throws MapperException {
+		UserTDG();
+	}
 }
