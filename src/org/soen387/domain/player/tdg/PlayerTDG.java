@@ -21,7 +21,7 @@ public class PlayerTDG {
 			+ "email CHAR(64), "
 			+ "username CHAR(64), "
 			+ "password CHAR(64), "
-			+ "user BIGINT"
+			+ "user BIGINT, "
 			+ "UNIQUE (username), "
 			+ "UNIQUE (email), "
 			+ "PRIMARY KEY (id)"

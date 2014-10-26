@@ -6,6 +6,7 @@ import org.dsrg.soenea.service.threadLocal.DbRegistry;
 import org.soen387.app.AbstractPageController;
 import org.soen387.domain.checkerboard.tdg.CheckerBoardTDG;
 import org.soen387.domain.user.tdg.UserTDG;
+import org.soen387.domain.player.tdg.PlayerTDG;
 import org.soen387.domain.model.checkerboard.GameStatus;
 
 public class DBSetup {
@@ -15,6 +16,7 @@ public class DBSetup {
 		try {
 			CheckerBoardTDG.createTable();
 			UserTDG.createTable();
+			PlayerTDG.createTable();
 			DbRegistry.getDbConnection();
 			
 		} catch (SQLException e) {
