@@ -19,10 +19,7 @@ public class PlayerTDG {
 			+ "first_name CHAR(64), "
 			+ "last_name CHAR(64), "
 			+ "email CHAR(64), "
-			+ "username CHAR(64), "
-			+ "password CHAR(64), "
 			+ "user BIGINT, "
-			+ "UNIQUE (username), "
 			+ "UNIQUE (email), "
 			+ "PRIMARY KEY (id)"
 			+ ");";
@@ -32,7 +29,6 @@ public class PlayerTDG {
 			+ "first_name=?, "
 			+ "last_name=?, "
 			+ "email=?, "
-			+ "username=?, "
 			+ "user=? "
 			+ "WHERE id=? AND version=?;";
 	public static final String DELETE = "DELETE FROM " + TABLE_NAME + " "
@@ -54,8 +50,8 @@ public class PlayerTDG {
 	
 	
 	public static final String INSERT = "INSERT INTO " + TABLE_NAME + " (" + COLUMNS + ") "
-			+ "VALUES (?,?,?,?,?,?,?,?);";
-	public static int insert(long id, int version, String first_name, String last_name, String email, String username, int user) throws SQLException {
+			+ "VALUES (?,?,?,?,?,?);";
+	public static int insert(long id, int version, String first_name, String last_name, String email, long user) throws SQLException {
 		Connection con = DbRegistry.getDbConnection();
 		PreparedStatement ps = con.prepareStatement(INSERT);
 		ps.setLong(1,id);
@@ -63,13 +59,12 @@ public class PlayerTDG {
 		ps.setString(3,first_name);
 		ps.setString(4,last_name);
 		ps.setString(5, email);
-		ps.setString(6, username);
-		ps.setInt(7, user);
+		ps.setLong(6, user);
 		System.out.println(ps.toString());
 		return ps.executeUpdate();
 	}
 	
-	public static int update(long id, int version, String first_name, String last_name, String email, String username, int user) throws SQLException {
+	public static int update(long id, int version, String first_name, String last_name, String email, long user) throws SQLException {
 		Connection con = DbRegistry.getDbConnection();
 		PreparedStatement ps = con.prepareStatement(UPDATE);
 		ps.setLong(1, id);
@@ -77,8 +72,7 @@ public class PlayerTDG {
 		ps.setString(3, first_name);
 		ps.setString(4, last_name);
 		ps.setString(5, email);
-		ps.setString(6, username);
-		ps.setInt(7, user);
+		ps.setLong(6, user);
 		System.out.println(ps.toString());
 		return ps.executeUpdate();
 	}
