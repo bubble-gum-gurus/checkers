@@ -1,4 +1,4 @@
-package org.soen387.domain.user.tdg;
+package org.soen387.domain.player.tdg;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,24 +8,32 @@ import java.sql.Statement;
 
 import org.dsrg.soenea.service.threadLocal.DbRegistry;
 
-public class UserTDG {
-	public static final String TABLE_NAME = "User";
-	public static final String COLUMNS = "id, version, username, password ";
+public class PlayerTDG {
+	public static final String TABLE_NAME = "Player";
+	public static final String COLUMNS = "id, version, first_name, last_name, email, username ";
 	public static final String TRUNCATE_TABLE = "TRUNCATE TABLE  " + TABLE_NAME + ";";
 	public static final String DROP_TABLE = "DROP TABLE  " + TABLE_NAME + ";";
 	public static final String CREATE_TABLE ="CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" 
 			+ "id BIGINT NOT NULL AUTO_INCREMENT, "
 			+ "version int, "
+			+ "first_name CHAR(64), "
+			+ "last_name CHAR(64), "
+			+ "email CHAR(64), "
 			+ "username CHAR(64), "
 			+ "password CHAR(64), "
+			+ "user BIGINT"
 			+ "UNIQUE (username), "
+			+ "UNIQUE (email), "
 			+ "PRIMARY KEY (id)"
 			+ ");";
 
 	public static final String UPDATE = "UPDATE " + TABLE_NAME + " "
 			+ "SET version=version+1, "
+			+ "first_name=?, "
+			+ "last_name=?, "
+			+ "email=?, "
 			+ "username=?, "
-			+ "password=? "
+			+ "user=? "
 			+ "WHERE id=? AND version=?;";
 	public static final String DELETE = "DELETE FROM " + TABLE_NAME + " "
 			+ "WHERE id=? AND version=?;";
@@ -46,25 +54,31 @@ public class UserTDG {
 	
 	
 	public static final String INSERT = "INSERT INTO " + TABLE_NAME + " (" + COLUMNS + ") "
-			+ "VALUES (?,?,?,?);";
-	public static int insert(long id, int version, String username, String password) throws SQLException {
+			+ "VALUES (?,?,?,?,?,?,?,?);";
+	public static int insert(long id, int version, String first_name, String last_name, String email, String username, int user) throws SQLException {
 		Connection con = DbRegistry.getDbConnection();
 		PreparedStatement ps = con.prepareStatement(INSERT);
 		ps.setLong(1,id);
 		ps.setInt(2,version);
-		ps.setString(3,username);
-		ps.setString(4,password);
+		ps.setString(3,first_name);
+		ps.setString(4,last_name);
+		ps.setString(5, email);
+		ps.setString(6, username);
+		ps.setInt(7, user);
 		System.out.println(ps.toString());
 		return ps.executeUpdate();
 	}
 	
-	public static int update(long id, int version, String username, String password) throws SQLException {
+	public static int update(long id, int version, String first_name, String last_name, String email, String username, int user) throws SQLException {
 		Connection con = DbRegistry.getDbConnection();
 		PreparedStatement ps = con.prepareStatement(UPDATE);
 		ps.setLong(1, id);
 		ps.setInt(2, version);
-		ps.setString(3, username);
-		ps.setString(4, password);
+		ps.setString(3, first_name);
+		ps.setString(4, last_name);
+		ps.setString(5, email);
+		ps.setString(6, username);
+		ps.setInt(7, user);
 		System.out.println(ps.toString());
 		return ps.executeUpdate();
 	}

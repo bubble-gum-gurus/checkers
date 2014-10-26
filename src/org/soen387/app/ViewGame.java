@@ -6,25 +6,24 @@ import java.util.List;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.dsrg.soenea.domain.MapperException;
-import org.soen387.domain.user.mapper.UserDataMapper;
-import org.soen387.domain.model.user.User;
+import org.soen387.domain.checkerboard.mapper.CheckerBoardDataMapper;
+import org.soen387.domain.model.checkerboard.CheckerBoard;
 
 /**
- * Servlet implementation class ListUsers
+ * Servlet implementation class ListGames
  */
-@WebServlet("/ListUsers")
-public class ListUsers extends AbstractPageController implements Servlet {
+@WebServlet("/ViewGame")
+public class ViewGame extends AbstractPageController implements Servlet {
 	private static final long serialVersionUID = 1L;
        
     /**
-     * @see HttpServlet#HttpServlet()
+     * @see AbstractPageController#AbstractPageController()
      */
-    public ListUsers() {
+    public ViewGame() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,12 +40,16 @@ public class ListUsers extends AbstractPageController implements Servlet {
 		//appropriate!
 		
 		try {
-			List<User> users = UserDataMapper.findAll();
-			request.setAttribute("users", users);
-			request.getRequestDispatcher("/WEB-INF/jsp/xml/listusers.jsp").forward(request, response);
+			String id = request.getParameter("id");
+			CheckerBoard game = CheckerBoardDataMapper.find(Long.valueOf(id));
+			request.setAttribute("game", game);
+			request.getRequestDispatcher("/WEB-INF/jsp/xml/viewgame.jsp").forward(request, response);
 		} catch (MapperException e) {
+
 			e.printStackTrace();
 		}
+		
 	}
+
 
 }

@@ -17,17 +17,25 @@ public class UserDataMapper {
 		    while(rs.next()) {
 		    	l.add(new User(rs.getLong("id"), 
 		    			rs.getInt("version"), 
-		    			rs.getString("first_name"),
-		    			rs.getString("last_name"),
-		    			rs.getString("email"),
-		    			rs.getString("username")));
+		    			rs.getString("username"),
+		    			rs.getString("password")));
 		    }
 		    return l;
 		}
+	
+	public static User find(long id) throws MapperException {
+		try {
+			ResultSet rs = UserTDG.find(id);
+			User u = buildCollection(rs).get(0);
+			return u;
+		} catch (SQLException e) {
+			throw new MapperException(e);
+		}
+	}
 
 	public static List<User> findAll() throws MapperException {
         try {
-            ResultSet rs = UserTDG.findAll();
+        	ResultSet rs = UserTDG.findAll();
             return buildCollection(rs);
         } catch (SQLException e) {
             throw new MapperException(e);

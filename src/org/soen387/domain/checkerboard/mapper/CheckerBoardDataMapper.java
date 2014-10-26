@@ -36,6 +36,15 @@ public class CheckerBoardDataMapper {
 		    }
 		    return l;
 		}
+	
+	public static CheckerBoard find(long id) throws MapperException {
+		try {
+			ResultSet rs = CheckerBoardTDG.find(id);
+			return buildCollection(rs).get(0);
+		} catch (SQLException e) {
+			throw new MapperException(e);
+		}
+	}
 
 	public static List<CheckerBoard> findAll() throws MapperException {
         try {
