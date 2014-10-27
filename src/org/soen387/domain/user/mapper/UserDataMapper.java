@@ -27,8 +27,12 @@ public class UserDataMapper {
 	public static User find(long id) throws MapperException {
 		try {
 			ResultSet rs = UserTDG.find(id);
-			User u = buildCollection(rs).get(0);
-			return u;
+			List<User> collection = buildCollection(rs);
+			if (collection.isEmpty()) {
+				return null;
+			} else {
+				return collection.get(0);
+			}
 		} catch (SQLException e) {
 			throw new MapperException(e);
 		}
@@ -37,8 +41,12 @@ public class UserDataMapper {
 	public static User find(String username, String password) throws MapperException {
 		try {
 			ResultSet rs = UserTDG.find(username, password);
-			User u = buildCollection(rs).get(0);
-			return u;
+			List<User> collection = buildCollection(rs);
+			if (collection.isEmpty()) {
+				return null;
+			} else {
+				return collection.get(0);
+			}
 		} catch (SQLException e) {
 			throw new MapperException(e);
 		}
@@ -54,6 +62,11 @@ public class UserDataMapper {
 	}
 	
 	public static User create(User user) throws MapperException {
-		UserTDG.insert(user);
+			try {
+				UserTDG.insert(user.getUsername(), user.getPassword());
+				return find(user.getUsername(), user.getPassword());
+			} catch (SQLException e) {
+				throw new MapperException(e);
+			}
 		}
 }

@@ -42,12 +42,9 @@ public class LogOut extends AbstractPageController implements Servlet {
 		//But I don't start a transaction or deal with commit/rollback automatically... You gotta do that as
 		//appropriate!
 		
-		try {	
-			session=request.getSession(false);
-			request.getRequestDispatcher("/WEB-INF/jsp/xml/LogOut.jsp").forward(request, response);
-		} catch (MapperException e) {
-			e.printStackTrace();
-		}
+		request.getSession(true).invalidate();
+		request.getRequestDispatcher("/WEB-INF/jsp/xml/LogOut.jsp").forward(request, response);
+
 	}
 
 }
