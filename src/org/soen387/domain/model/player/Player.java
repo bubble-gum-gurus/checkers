@@ -29,6 +29,16 @@ public class Player implements IPlayer {
 		this.user = user;
 	}
 	
+	//Player Constructor w/o (id,version)
+	public Player (String first_name, String last_name, String email, IUser user){
+		
+		super();
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.user = user;
+				
+	}
+	
 	public long getId() {
 		return this.id;
 	}

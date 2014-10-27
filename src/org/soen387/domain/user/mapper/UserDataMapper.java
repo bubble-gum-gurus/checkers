@@ -54,6 +54,6 @@ public class UserDataMapper {
 	}
 	
 	public static User create(User user) throws MapperException {
-		UserTDG();
-	}
+		UserTDG.insert(user);
+		}
 }

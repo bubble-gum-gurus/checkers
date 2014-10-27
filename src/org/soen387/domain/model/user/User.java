@@ -14,6 +14,14 @@ public class User implements IUser {
 		this.password = password;
 	}
 	
+	
+	//User constructor w/o (id,version)
+	public User (String username, String password) {
+			
+		this.username = username;
+		this.password = password;
+	}
+	
 	public long getId() {
 		return this.id;
 	}

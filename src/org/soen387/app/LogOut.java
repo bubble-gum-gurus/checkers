@@ -26,7 +26,7 @@ public class LogOut extends AbstractPageController implements Servlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogIn() {
+    public LogOut() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,8 +42,7 @@ public class LogOut extends AbstractPageController implements Servlet {
 		//But I don't start a transaction or deal with commit/rollback automatically... You gotta do that as
 		//appropriate!
 		
-		try {
-					
+		try {	
 			session=request.getSession(false);
 			request.getRequestDispatcher("/WEB-INF/jsp/xml/LogOut.jsp").forward(request, response);
 		} catch (MapperException e) {

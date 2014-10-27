@@ -42,12 +42,15 @@ public class Register extends AbstractPageController implements Servlet {
 		//But I don't start a transaction or deal with commit/rollback automatically... You gotta do that as
 		//appropriate!
 		
-		try {
-					
-			User user = new User();
+		try {				
+			String username = request.getAttribute(username);
+			String password = request.getAttribute(password);
+			User user = new User(username,password);
 			UserDataMapper.create(user);
-			Player player = new Player(user);
-			
+			String firstname = request.getAttribute(firstname); 
+			String lastname = request.getAttribute(lastname);
+			String email = request.getAttribute(email);
+			Player player = new Player(firstname,lastname,email,user);			
 			request.getRequestDispatcher("/WEB-INF/jsp/xml/Register.jsp").forward(request, response);
 		} catch (MapperException e) {
 			e.printStackTrace();

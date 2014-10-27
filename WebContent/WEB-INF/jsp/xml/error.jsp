@@ -5,5 +5,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <checkers>
-	<status>Error View</status>
+	<status>Error</status>
 </checkers>
