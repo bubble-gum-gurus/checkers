@@ -6,8 +6,8 @@
 
 <checkers>
 <status>success</status>
-<player firstName="Stuart" lastName="Thiel" email="sthiel@encs.concordia.ca" id="1" version="1">
- <user username="sthiel" id="1"/>
+<player firstName="${user.username}" lastName="${user.lastname}" email="${user.email}" id=$"{user.id}" version=$"{user.version}">
+ <user username="${user.username}" id="${user.id}"/>
 </player>
 </checkers>
 

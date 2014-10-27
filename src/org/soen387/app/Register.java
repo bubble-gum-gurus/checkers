@@ -26,7 +26,7 @@ public class Register extends AbstractPageController implements Servlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogIn() {
+    public Register() {
         super();
         // TODO Auto-generated constructor stub
     }
