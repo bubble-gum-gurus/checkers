@@ -1,5 +1,7 @@
 package org.soen387.domain.model.player;
 
+import org.soen387.domain.model.user.IUser;
+
 public interface IPlayer {
 	
 	public long getId();
@@ -12,5 +14,7 @@ public interface IPlayer {
 	public void setLastName(String last_name);
 	public String getEmail();
 	public void setEmail(String email);
+	public IUser getUser();
+	public void setUser(IUser user);
 	
 }

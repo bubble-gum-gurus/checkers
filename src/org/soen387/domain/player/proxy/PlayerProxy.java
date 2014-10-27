@@ -3,6 +3,7 @@ package org.soen387.domain.player.proxy;
 import org.dsrg.soenea.domain.MapperException;
 import org.soen387.domain.model.player.IPlayer;
 import org.soen387.domain.model.player.Player;
+import org.soen387.domain.model.user.IUser;
 import org.soen387.domain.player.mapper.PlayerDataMapper;
 import org.dsrg.soenea.domain.MapperException;
 
@@ -64,5 +65,13 @@ public class PlayerProxy implements IPlayer {
 	
 	public void setEmail(String email) {
 		getInnerObject().setEmail(email);
+	}
+	
+	public IUser getUser() {
+		return getInnerObject().getUser();
+	}
+	
+	public void setUser(IUser user) {
+		getInnerObject().setUser(user);
 	}
 }

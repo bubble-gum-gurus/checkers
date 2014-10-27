@@ -6,8 +6,7 @@
 
 <checkers>
 <status>success</status>
-<player firstName="${user.username}" lastName="${user.lastname}" email="${user.email}" id=$"{user.id}" version=$"{user.version}">
+<player firstName="${user.player.firstname}" lastName="${user.player.lastname}" email="${user.player.email}" id="${user.player.id}" version="${user.player.version}">
  <user username="${user.username}" id="${user.id}"/>
 </player>
 </checkers>
-

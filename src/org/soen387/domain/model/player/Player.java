@@ -78,4 +78,12 @@ public class Player implements IPlayer {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public IUser getUser() {
+		return user;
+	}
+	
+	public void setUser(IUser user) {
+		this.user = user;
+	}
 }

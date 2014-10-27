@@ -50,16 +50,14 @@ public class PlayerTDG {
 	
 	
 	public static final String INSERT = "INSERT INTO " + TABLE_NAME + " (" + COLUMNS + ") "
-			+ "VALUES (?,?,?,?,?,?);";
-	public static int insert(long id, int version, String first_name, String last_name, String email, long user) throws SQLException {
+			+ "VALUES (?,?,?,?);";
+	public static int insert(String first_name, String last_name, String email, long user) throws SQLException {
 		Connection con = DbRegistry.getDbConnection();
 		PreparedStatement ps = con.prepareStatement(INSERT);
-		ps.setLong(1,id);
-		ps.setInt(2,version);
-		ps.setString(3,first_name);
-		ps.setString(4,last_name);
-		ps.setString(5, email);
-		ps.setLong(6, user);
+		ps.setString(1,first_name);
+		ps.setString(2,last_name);
+		ps.setString(3, email);
+		ps.setLong(4, user);
 		System.out.println(ps.toString());
 		return ps.executeUpdate();
 	}
@@ -91,6 +89,14 @@ public class PlayerTDG {
 		Connection con = DbRegistry.getDbConnection();
 		PreparedStatement ps = con.prepareStatement(FIND_ID);
 		ps.setLong(1, id);
+		return ps.executeQuery();
+	}
+	
+	public static final String FIND_EMAIL = "SELECT * FROM " + TABLE_NAME + " WHERE email=?;";
+	public static ResultSet find(String email) throws SQLException {
+		Connection con = DbRegistry.getDbConnection();
+		PreparedStatement ps = con.prepareStatement(FIND_EMAIL);
+		ps.setString(1, email);
 		return ps.executeQuery();
 	}
 	

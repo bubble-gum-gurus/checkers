@@ -14,6 +14,7 @@ import org.dsrg.soenea.domain.MapperException;
 import org.soen387.domain.user.mapper.UserDataMapper;
 import org.soen387.domain.model.player.Player;
 import org.soen387.domain.model.user.User;
+import org.soen387.domain.player.mapper.PlayerDataMapper;
 
 /**
  * Servlet implementation class ListUsers

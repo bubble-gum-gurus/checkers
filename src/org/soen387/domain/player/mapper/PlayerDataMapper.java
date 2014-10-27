@@ -34,6 +34,30 @@ public class PlayerDataMapper {
 		    return l;
 		}
 	
+	public static IPlayer create(IPlayer player) throws MapperException {
+		
+		try {
+			PlayerTDG.insert(player.getFirstName(), player.getLastName(), player.getEmail(), player.getUser().getId());
+			return find(player.getEmail());
+		} catch (SQLException e) {
+			throw new MapperException(e);
+		}
+	}
+	
+	public static IPlayer find(String email) throws MapperException {
+		try {
+			ResultSet rs = PlayerTDG.find(email);
+			List<IPlayer> collection = buildCollection(rs);
+			if (collection.isEmpty()) {
+				return null;
+			} else {
+				return collection.get(0);
+			}
+		} catch (SQLException e) {
+			throw new MapperException(e);
+		}
+	}
+	
 	public static IPlayer find(long id) throws MapperException {
 		if(PlayerIdentityMap.has(id)) {
 			return PlayerIdentityMap.get(id);

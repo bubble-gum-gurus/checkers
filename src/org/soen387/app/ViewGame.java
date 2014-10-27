@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.dsrg.soenea.domain.MapperException;
 import org.soen387.domain.checkerboard.mapper.CheckerBoardDataMapper;
 import org.soen387.domain.model.checkerboard.CheckerBoard;
+import org.soen387.domain.model.checkerboard.ICheckerBoard;
 
 /**
  * Servlet implementation class ListGames
@@ -41,9 +42,9 @@ public class ViewGame extends AbstractPageController implements Servlet {
 		
 		try {
 			String id = request.getParameter("id");
-			CheckerBoard game = CheckerBoardDataMapper.find(Long.valueOf(id));
+			ICheckerBoard game = CheckerBoardDataMapper.find(Long.valueOf(id));
 			request.setAttribute("game", game);
-			request.getRequestDispatcher("/WEB-INF/jsp/xml/viewgame.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/jsp/xml/ViewGame.jsp").forward(request, response);
 		} catch (MapperException e) {
 
 			e.printStackTrace();

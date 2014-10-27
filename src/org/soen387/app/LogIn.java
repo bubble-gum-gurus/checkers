@@ -45,11 +45,12 @@ public class LogIn extends AbstractPageController implements Servlet {
 		try {
 			String username =  request.getParameter("username");
 			String password =  request.getParameter("password");
-			User user =  UserDataMapper.find("username",  "password");
+			User user =  UserDataMapper.find(username, password);
 			if(user == null){
 				request.getRequestDispatcher("/WEB-INF/jsp/xml/error.jsp").forward(request, response);
 			}
 			else{
+				request.setAttribute("user", user);
 				request.getRequestDispatcher("/WEB-INF/jsp/xml/LogIn.jsp").forward(request, response);
 			}
 //			request.setAttribute("username", user);
