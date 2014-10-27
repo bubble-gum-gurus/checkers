@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.dsrg.soenea.domain.MapperException;
 import org.soen387.domain.user.mapper.UserDataMapper;
+import org.soen387.domain.model.player.Player;
 import org.soen387.domain.model.user.User;
 
 /**
@@ -44,13 +45,14 @@ public class Register extends AbstractPageController implements Servlet {
 		
 		try {				
 			String username = request.getParameter("username");
-			String password = request.getParameter(password);
+			String password = request.getParameter("password");
 			User user = new User("username","password");
 			UserDataMapper.create(user);
 			String firstname = request.getParameter("firstname"); 
 			String lastname = request.getParameter("lastname");
 			String email = request.getParameter("email");
-			Player player = new Player("firstname","lastname","email",user);			
+			Player player = new Player("firstname","lastname","email",user);	
+			PlayerDataMapper.create(player);
 			request.getRequestDispatcher("/WEB-INF/jsp/xml/Register.jsp").forward(request, response);
 		} catch (MapperException e) {
 			e.printStackTrace();
