@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.dsrg.soenea.domain.MapperException;
 import org.soen387.domain.user.mapper.UserDataMapper;
@@ -43,18 +44,17 @@ public class LogIn extends AbstractPageController implements Servlet {
 		//appropriate!
 		
 		try {
-			String username =  request.getAttribute(username);
-			String password =  request.getAttribute(password);
+			String username =  request.getParameter("username");
+			String password =  request.getParameter("password");
 			User user =  UserDataMapper.find( username,  password);
 			if(user == null){
 				request.getRequestDispatcher("/WEB-INF/jsp/xml/error.jsp").forward(request, response);
 			}
 			else{
+				HttpSession session = request.getSession(true);
+				session.setAttribute("user", user.getId());
 				request.getRequestDispatcher("/WEB-INF/jsp/xml/LogIn.jsp").forward(request, response);
 			}
-//			request.setAttribute("username", user);
-//			request.setAttribute("password", pass);
-//			request.getRequestDispatcher("/WEB-INF/jsp/xml/LogIn.jsp").forward(request, response);
 		} catch (MapperException e) {
 			e.printStackTrace();
 		}
