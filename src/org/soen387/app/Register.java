@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.dsrg.soenea.domain.MapperException;
+import org.soen387.app.helpers.ErrorHandler;
+import org.soen387.app.helpers.ParamChecker;
 import org.soen387.domain.user.mapper.UserDataMapper;
 import org.soen387.domain.model.player.IPlayer;
 import org.soen387.domain.model.player.Player;
