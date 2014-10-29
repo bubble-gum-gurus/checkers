@@ -45,29 +45,27 @@ public class Register extends AbstractPageController implements Servlet {
 		//But I don't start a transaction or deal with commit/rollback automatically... You gotta do that as
 		//appropriate!
 
+		String[] params = {"username", "password", "firstname", "lastname", "email"};
+		ParamChecker.checkParams(params, request, response);
+		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String firstname = request.getParameter("firstname"); 
 		String lastname = request.getParameter("lastname");
 		String email = request.getParameter("email");
 		
-		if (username == null || password == null || firstname == null || lastname == null || email == null) {
-			ErrorHandler.error("Need params 'username', 'password', 'firstname', 'lastname', 'email'", request, response);
-		} else {
-		
-			try {
-				User user = new User(username,password);
-				user = UserDataMapper.create(user);
-				IPlayer player = new Player(firstname,lastname, email, user);	
-				player = PlayerDataMapper.create(player);
-				user.setPlayer(player);
-				UserDataMapper.update(user);
-				request.setAttribute("player", player);
-				request.getRequestDispatcher("/WEB-INF/jsp/xml/Register.jsp").forward(request, response);
-			} catch (MapperException e) {
-				e.printStackTrace();
-				ErrorHandler.error(e.toString(), request, response);
-			}
+		try {
+			User user = new User(username,password);
+			user = UserDataMapper.create(user);
+			IPlayer player = new Player(firstname,lastname, email, user);	
+			player = PlayerDataMapper.create(player);
+			user.setPlayer(player);
+			UserDataMapper.update(user);
+			request.setAttribute("player", player);
+			request.getRequestDispatcher("/WEB-INF/jsp/xml/Register.jsp").forward(request, response);
+		} catch (MapperException e) {
+			e.printStackTrace();
+			ErrorHandler.error(e.toString(), request, response);
 		}
 	}
 
