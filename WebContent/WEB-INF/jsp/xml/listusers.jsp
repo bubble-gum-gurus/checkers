@@ -7,7 +7,7 @@
 	<status>success</status>
 	<players>
 		<c:forEach var="user" items="${users}">
-		<player firstName="${user.firstName}" lastName="${user.lastName}" email="${user.email}" id="${user.id}" version="${user.version}">
+		<player firstName="${user.player.firstName}" lastName="${user.player.lastName}" email="${user.player.email}" id="${user.player.id}" version="${user.player.version}">
 			<user username="${user.username}" id="${user.id}" version="${user.version}" />
 		</player>
 		</c:forEach>
