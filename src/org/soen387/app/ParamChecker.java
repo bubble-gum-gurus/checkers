@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ParamChecker {
 
-	public static void checkParams(String[] params, HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+	public static boolean checkParams(String[] params, HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		boolean valid = true;
 		String errorString = "Missing params: ";
 		for(int i = 0; i < params.length; i++) {
@@ -20,5 +20,6 @@ public class ParamChecker {
 		if (!valid) {
 			ErrorHandler.error(errorString.substring(0,errorString.length()-2), req, res);
 		}
+		return valid;
 	}
 }

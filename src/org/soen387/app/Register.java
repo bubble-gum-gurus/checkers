@@ -37,23 +37,22 @@ public class Register extends AbstractPageController implements Servlet {
 	@Override
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		//We're inheriting from SoenEA's Servlet, so we get the DB getting taken care of mostly for us
-		//We just need to make sure MyResources.properties has all our stuff, then it opens
-		//and closes db connections for us and we can get at them by asking for
-		//DbRegistry.getConnection()
-		//
-		//But I don't start a transaction or deal with commit/rollback automatically... You gotta do that as
-		//appropriate!
-
-		String[] params = {"username", "password", "firstname", "lastname", "email"};
-		ParamChecker.checkParams(params, request, response);
 		
+		
+		// check that the appropriate params were supplied
+		String[] params = {"username", "password", "firstname", "lastname", "email"};
+		if(!ParamChecker.checkParams(params, request, response)) {
+			return;
+		}
+		
+		// retrieve params
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String firstname = request.getParameter("firstname"); 
 		String lastname = request.getParameter("lastname");
 		String email = request.getParameter("email");
 		
+		// create user
 		try {
 			User user = new User(username,password);
 			user = UserDataMapper.create(user);
