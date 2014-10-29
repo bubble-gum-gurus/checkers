@@ -10,7 +10,7 @@ import org.dsrg.soenea.service.threadLocal.DbRegistry;
 
 public class PlayerTDG {
 	public static final String TABLE_NAME = "Player";
-	public static final String COLUMNS = "id, version, first_name, last_name, email, username ";
+	public static final String COLUMNS = "version, first_name, last_name, email, user ";
 	public static final String TRUNCATE_TABLE = "TRUNCATE TABLE  " + TABLE_NAME + ";";
 	public static final String DROP_TABLE = "DROP TABLE  " + TABLE_NAME + ";";
 	public static final String CREATE_TABLE ="CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" 
@@ -50,7 +50,7 @@ public class PlayerTDG {
 	
 	
 	public static final String INSERT = "INSERT INTO " + TABLE_NAME + " (" + COLUMNS + ") "
-			+ "VALUES (?,?,?,?);";
+			+ "VALUES (0,?,?,?,?);";
 	public static int insert(String first_name, String last_name, String email, long user) throws SQLException {
 		Connection con = DbRegistry.getDbConnection();
 		PreparedStatement ps = con.prepareStatement(INSERT);

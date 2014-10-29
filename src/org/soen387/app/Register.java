@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.dsrg.soenea.domain.MapperException;
 import org.soen387.domain.user.mapper.UserDataMapper;
+import org.soen387.domain.model.player.IPlayer;
 import org.soen387.domain.model.player.Player;
 import org.soen387.domain.model.user.User;
 import org.soen387.domain.player.mapper.PlayerDataMapper;
@@ -43,20 +44,30 @@ public class Register extends AbstractPageController implements Servlet {
 		//
 		//But I don't start a transaction or deal with commit/rollback automatically... You gotta do that as
 		//appropriate!
+
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		String firstname = request.getParameter("firstname"); 
+		String lastname = request.getParameter("lastname");
+		String email = request.getParameter("email");
 		
-		try {				
-			String username = request.getParameter("username");
-			String password = request.getParameter("password");
-			User user = new User("username","password");
-			UserDataMapper.create(user);
-			String firstname = request.getParameter("firstname"); 
-			String lastname = request.getParameter("lastname");
-			String email = request.getParameter("email");
-			Player player = new Player("firstname","lastname","email",user);	
-			PlayerDataMapper.create(player);
-			request.getRequestDispatcher("/WEB-INF/jsp/xml/Register.jsp").forward(request, response);
-		} catch (MapperException e) {
-			e.printStackTrace();
+		if (username == null || password == null || firstname == null || lastname == null || email == null) {
+			ErrorHandler.error("Need params 'username', 'password', 'firstname', 'lastname', 'email'", request, response);
+		} else {
+		
+			try {
+				User user = new User(username,password);
+				user = UserDataMapper.create(user);
+				IPlayer player = new Player(firstname,lastname, email, user);	
+				player = PlayerDataMapper.create(player);
+				user.setPlayer(player);
+				UserDataMapper.update(user);
+				request.setAttribute("player", player);
+				request.getRequestDispatcher("/WEB-INF/jsp/xml/Register.jsp").forward(request, response);
+			} catch (MapperException e) {
+				e.printStackTrace();
+				ErrorHandler.error(e.toString(), request, response);
+			}
 		}
 	}
 

@@ -1,17 +1,21 @@
 package org.soen387.domain.model.user;
 
+import org.soen387.domain.model.player.IPlayer;
+
 public class User implements IUser {
 	
 	private long id;
 	private int version;
 	private String username;
 	private String password;
+	private IPlayer player;
 	
-	public User (long id, int version, String username, String password) {
+	public User (long id, int version, String username, String password, IPlayer player) {
 		this.id = id;
 		this.version = version;
 		this.username = username;
 		this.password = password;
+		this.player = player;
 	}
 	
 	
@@ -52,5 +56,13 @@ public class User implements IUser {
 	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public IPlayer getPlayer () {
+		return player;
+	}
+	
+	public void setPlayer(IPlayer player) {
+		this.player = player;
 	}
 }

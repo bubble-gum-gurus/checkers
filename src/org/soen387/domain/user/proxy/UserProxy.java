@@ -1,5 +1,6 @@
 package org.soen387.domain.user.proxy;
 
+import org.soen387.domain.model.player.IPlayer;
 import org.soen387.domain.model.user.User;
 import org.soen387.domain.user.mapper.UserDataMapper;
 import org.soen387.domain.model.user.IUser;
@@ -18,7 +19,7 @@ public class UserProxy implements IUser {
 	private User getInnerObject() {
 		if (user == null) {
 			try {
-				UserDataMapper.find(id);
+				user = UserDataMapper.find(id);
 			} catch (MapperException e) {
 				// ?
 			}
@@ -56,5 +57,13 @@ public class UserProxy implements IUser {
 	
 	public void setPassword(String password) {
 		this.getInnerObject().setPassword(password);
+	}
+	
+	public IPlayer getPlayer() {
+		return getInnerObject().getPlayer();
+	}
+	
+	public void setPlayer(IPlayer player) {
+		getInnerObject().setPlayer(player);
 	}
 }

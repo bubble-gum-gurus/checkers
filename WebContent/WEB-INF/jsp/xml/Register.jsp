@@ -7,7 +7,7 @@
 
 <checkers>
 <status>success</status>
-<player firstName="Stuart" lastName="Thiel" email="sthiel@encs.concordia.ca" id="1" version="1">
- <user username="sthiel" id="1" version="1">
+<player firstName="${player.firstName}" lastName="${player.lastName}" email="${player.email}" id="${player.id}" version="${player.version}">
+ <user username="${player.user.username}" id="${player.user.id}" version="${player.user.version}"/>
 </player>
 </checkers>

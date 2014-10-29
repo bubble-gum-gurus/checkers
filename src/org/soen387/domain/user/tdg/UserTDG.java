@@ -10,7 +10,7 @@ import org.dsrg.soenea.service.threadLocal.DbRegistry;
 
 public class UserTDG {
 	public static final String TABLE_NAME = "User";
-	public static final String COLUMNS = "username, password ";
+	public static final String COLUMNS = "version, username, password ";
 	public static final String TRUNCATE_TABLE = "TRUNCATE TABLE  " + TABLE_NAME + ";";
 	public static final String DROP_TABLE = "DROP TABLE  " + TABLE_NAME + ";";
 	public static final String CREATE_TABLE ="CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" 
@@ -18,6 +18,7 @@ public class UserTDG {
 			+ "version int, "
 			+ "username CHAR(64), "
 			+ "password CHAR(64), "
+			+ "player BIGINT, "
 			+ "UNIQUE (username), "
 			+ "PRIMARY KEY (id)"
 			+ ");";
@@ -25,7 +26,8 @@ public class UserTDG {
 	public static final String UPDATE = "UPDATE " + TABLE_NAME + " "
 			+ "SET version=version+1, "
 			+ "username=?, "
-			+ "password=? "
+			+ "password=?, "
+			+ "player=? "
 			+ "WHERE id=? AND version=?;";
 	public static final String DELETE = "DELETE FROM " + TABLE_NAME + " "
 			+ "WHERE id=? AND version=?;";
@@ -46,7 +48,7 @@ public class UserTDG {
 	
 	
 	public static final String INSERT = "INSERT INTO " + TABLE_NAME + " (" + COLUMNS + ") "
-			+ "VALUES (?,?);";
+			+ "VALUES (0,?,?);";
 	
 	public static int insert( String username, String password) throws SQLException {
 		Connection con = DbRegistry.getDbConnection();
@@ -57,13 +59,14 @@ public class UserTDG {
 		return ps.executeUpdate();
 	}
 	
-	public static int update(long id, int version, String username, String password) throws SQLException {
+	public static int update(long id, int version, String username, String password, long playerid) throws SQLException {
 		Connection con = DbRegistry.getDbConnection();
 		PreparedStatement ps = con.prepareStatement(UPDATE);
-		ps.setLong(1, id);
-		ps.setInt(2, version);
-		ps.setString(3, username);
-		ps.setString(4, password);
+		ps.setLong(4, id);
+		ps.setInt(5, version);
+		ps.setString(1, username);
+		ps.setString(2, password);
+		ps.setLong(3, playerid);
 		System.out.println(ps.toString());
 		return ps.executeUpdate();
 	}

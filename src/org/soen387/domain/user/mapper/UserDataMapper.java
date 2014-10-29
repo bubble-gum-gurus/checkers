@@ -8,6 +8,7 @@ import java.util.List;
 import org.dsrg.soenea.domain.MapperException;
 import org.soen387.domain.user.tdg.UserTDG;
 import org.soen387.domain.model.user.User;
+import org.soen387.domain.player.proxy.PlayerProxy;
 
 public class UserDataMapper {
 	
@@ -19,7 +20,8 @@ public class UserDataMapper {
 		    	l.add(new User(rs.getLong("id"), 
 		    			rs.getInt("version"), 
 		    			rs.getString("username"),
-		    			rs.getString("password")));
+		    			rs.getString("password"),
+		    			new PlayerProxy(rs.getLong("player"))));
 		    }
 		    return l;
 		}
@@ -62,11 +64,19 @@ public class UserDataMapper {
 	}
 	
 	public static User create(User user) throws MapperException {
-			try {
-				UserTDG.insert(user.getUsername(), user.getPassword());
-				return find(user.getUsername(), user.getPassword());
-			} catch (SQLException e) {
-				throw new MapperException(e);
-			}
+		try {
+			UserTDG.insert(user.getUsername(), user.getPassword());
+			return find(user.getUsername(), user.getPassword());
+		} catch (SQLException e) {
+			throw new MapperException(e);
 		}
+	}
+	
+	public static void update(User user) throws MapperException {
+		try {
+			UserTDG.update(user.getId(), user.getVersion(), user.getUsername(), user.getPassword(), user.getPlayer().getId());
+		} catch (SQLException e) {
+			throw new MapperException(e);
+		}
+	}
 }
