@@ -88,4 +88,14 @@ public class ChallengeTDG {
 		return ps.executeQuery();
 	}
 	
+	public static final String FIND_USERS = "SELECT * FROM " + TABLE_NAME + " WHERE (challengee=? AND challenger=?) OR (challengee=? AND challenger=?);";
+	public static ResultSet find(long user1, long user2) throws SQLException {
+		Connection con = DbRegistry.getDbConnection();
+		PreparedStatement ps = con.prepareStatement(FIND_USERS);
+		ps.setLong(1, user1);
+		ps.setLong(2, user2);
+		ps.setLong(3, user2);
+		ps.setLong(4, user1);
+		return ps.executeQuery();
+	}
 }

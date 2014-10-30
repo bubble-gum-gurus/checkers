@@ -44,10 +44,26 @@ public class CheckerBoardDataMapper {
 		    return l;
 		}
 	
+	// finds a checkerboard by checkerboard id
 	public static ICheckerBoard find(long id) throws MapperException {
 		try {
 			ResultSet rs = CheckerBoardTDG.find(id);
 			return buildCollection(rs).get(0);
+		} catch (SQLException e) {
+			throw new MapperException(e);
+		}
+	}
+	
+	// finds a checkerboard id by the ids of the two players
+	public static ICheckerBoard find(long player1_id, long player2_id) throws MapperException {
+		try {
+			ResultSet rs = CheckerBoardTDG.find(player1_id, player2_id);
+			List<ICheckerBoard> collection = buildCollection(rs);
+			if(collection.isEmpty()) {
+				return null;
+			} else {
+				return collection.get(0);
+			}
 		} catch (SQLException e) {
 			throw new MapperException(e);
 		}

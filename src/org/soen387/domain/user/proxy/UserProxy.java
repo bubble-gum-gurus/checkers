@@ -10,13 +10,13 @@ import org.dsrg.soenea.domain.MapperException;
 public class UserProxy implements IUser {
 	
 	private long id;
-	private User user;
+	private IUser user;
 	
 	public UserProxy (long id) {
 		this.id = id;
 	}
 	
-	private User getInnerObject() {
+	private IUser getInnerObject() {
 		if (user == null) {
 			try {
 				user = UserDataMapper.find(id);

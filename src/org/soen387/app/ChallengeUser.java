@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.dsrg.soenea.domain.MapperException;
 import org.soen387.domain.challenge.mapper.ChallengeDataMapper;
 import org.soen387.domain.user.mapper.UserDataMapper;
+import org.soen387.domain.model.player.IPlayer;
 import org.soen387.domain.model.user.IUser;
 import org.soen387.domain.model.challenge.*;
 import org.soen387.app.helpers.ErrorHandler;
@@ -45,6 +46,9 @@ public class ChallengeUser extends AbstractPageController implements Servlet {
 		
 		try {
 			
+			// temporary load challenger until we have auth working
+			IUser challenger = UserDataMapper.find(9);
+			
 			// check that user exists
 			IUser challengee = UserDataMapper.find(challengee_id);
 			if (challengee == null) {
@@ -52,9 +56,27 @@ public class ChallengeUser extends AbstractPageController implements Servlet {
 				return;
 			}
 			
-			// check that the two users do not currently have an
-			// open challenge
+			// get the players
+			IPlayer challengeePlayer = challengee.getPlayer();
+			IPlayer challengerPlayer = challenger.getPlayer();
 			
+			// check that the two users do not have an
+			// open challenge
+			IChallenge open_challenge = ChallengeDataMapper.find(challengeePlayer.getId(), challengerPlayer.getId());
+			if (open_challenge != null) {
+				ErrorHandler.error("challenge exists between users", request, response);
+				return;
+			}
+			
+			// check that the two players do not have an open game..
+			
+			// make a challenge between the two users
+			IChallenge challenge = new Challenge(challengeePlayer, challengerPlayer);
+			challenge = ChallengeDataMapper.create(challenge);
+			
+			// forward to jsp
+			request.setAttribute("challenge", challenge);
+			request.getRequestDispatcher("/WEB-INF/jsp/xml/challengeuser.jsp").forward(request, response);
 			
 		} catch (MapperException e) {
 

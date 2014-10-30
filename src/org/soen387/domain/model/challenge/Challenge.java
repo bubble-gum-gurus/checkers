@@ -18,6 +18,12 @@ public class Challenge implements IChallenge {
 		this.challenger = challenger;
 	}
 	
+	public Challenge(IPlayer challengee, IPlayer challenger) {
+		this.status = ChallengeStatus.Open;
+		this.challengee = challengee;
+		this.challenger = challenger;
+	}
+	
 	public long getId() {
 		return id;
 	}

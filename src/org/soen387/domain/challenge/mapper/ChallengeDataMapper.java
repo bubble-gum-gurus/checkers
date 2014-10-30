@@ -44,4 +44,30 @@ public class ChallengeDataMapper {
 			throw new MapperException(e);
 		}
 	}
+	
+	public static IChallenge find(long user1_id, long user2_id) throws MapperException {
+		try {
+			ResultSet rs = ChallengeTDG.find(user1_id, user2_id);
+			List<IChallenge> collection = buildCollection(rs);
+			if (collection.isEmpty()) {
+				return null;
+			} else {
+				return collection.get(0);
+			}
+		} catch (SQLException e) {
+			throw new MapperException(e);
+		}
+	}
+	
+	public static IChallenge create(IChallenge challenge) throws MapperException {
+		try {
+			long challenger_id = challenge.getChallenger().getId();
+			long challengee_id = challenge.getChallengee().getId();
+			ChallengeTDG.insert(challenge.getStatus().getId(), challengee_id, challenger_id);
+			return find(challengee_id, challenger_id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new MapperException(e);
+		}
+	}
 }
