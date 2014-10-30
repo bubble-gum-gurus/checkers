@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.dsrg.soenea.domain.MapperException;
 import org.soen387.domain.user.mapper.UserDataMapper;
+import org.soen387.domain.model.user.IUser;
 import org.soen387.domain.model.user.User;
 
 /**
@@ -42,7 +43,7 @@ public class ListUsers extends AbstractPageController implements Servlet {
 		//appropriate!
 		
 		try {
-			List<User> users = UserDataMapper.findAll();
+			List<IUser> users = UserDataMapper.findAll();
 			request.setAttribute("users", users);
 			request.getRequestDispatcher("/WEB-INF/jsp/xml/listusers.jsp").forward(request, response);
 		} catch (MapperException e) {

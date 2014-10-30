@@ -16,6 +16,7 @@ import org.soen387.app.helpers.ParamChecker;
 import org.soen387.domain.user.mapper.UserDataMapper;
 import org.soen387.domain.model.player.IPlayer;
 import org.soen387.domain.model.player.Player;
+import org.soen387.domain.model.user.IUser;
 import org.soen387.domain.model.user.User;
 import org.soen387.domain.player.mapper.PlayerDataMapper;
 
@@ -56,7 +57,7 @@ public class Register extends AbstractPageController implements Servlet {
 		
 		// create user
 		try {
-			User user = new User(username,password);
+			IUser user = new User(username,password);
 			user = UserDataMapper.create(user);
 			IPlayer player = new Player(firstname,lastname, email, user);	
 			player = PlayerDataMapper.create(player);

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.dsrg.soenea.domain.MapperException;
 import org.soen387.domain.user.mapper.UserDataMapper;
+import org.soen387.domain.model.user.IUser;
 import org.soen387.domain.model.user.User;
 
 /**
@@ -45,7 +46,7 @@ public class LogIn extends AbstractPageController implements Servlet {
 		try {
 			String username =  request.getParameter("username");
 			String password =  request.getParameter("password");
-			User user =  UserDataMapper.find(username, password);
+			IUser user =  UserDataMapper.find(username, password);
 			if(user == null){
 				request.getRequestDispatcher("/WEB-INF/jsp/xml/error.jsp").forward(request, response);
 			}
