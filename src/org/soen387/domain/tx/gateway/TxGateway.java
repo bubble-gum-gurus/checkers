@@ -1,9 +1,9 @@
 package org.soen387.domain.tx.gateway;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 
 import org.dsrg.soenea.service.threadLocal.DbRegistry;
 

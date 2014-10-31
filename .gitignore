@@ -18,3 +18,4 @@ hs_err_pid*
 .settings/org.eclipse.wst.common.component
 
 bin/MyResources.properties
+/bin/

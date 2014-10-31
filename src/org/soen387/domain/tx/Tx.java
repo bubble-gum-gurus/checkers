@@ -8,19 +8,31 @@ import org.soen387.domain.tx.gateway.TxGateway;
 
 public class Tx {
 	
-	public void start() throws SQLException
+	public void start() throws TxException
 	{
-		TxGateway.startTransaction();
+		try {
+			TxGateway.startTransaction();
+		} catch (SQLException e) {
+			new TxException(e);
+		}
 	}
 	
-	public void commit() throws SQLException
+	public void commit() throws TxException
 	{
-		TxGateway.commit();
+		try {
+			TxGateway.commit();
+		} catch (SQLException e) {
+			new TxException(e);
+		}
 	}
 	
-	public void rollback() throws SQLException
+	public void rollback() throws TxException
 	{
-		TxGateway.rollback();
+		try {
+			TxGateway.rollback();
+		} catch (SQLException e) {
+			new TxException(e);
+		}
 	}
 
 }
