@@ -78,7 +78,20 @@ public class CheckerBoard implements ICheckerBoard {
 	Player firstPlayer;
 	Player secondPlayer;
 	Player currentPlayer;
-
+	
+	public String toString()
+	{
+		String value = "";
+		for(int i = 0; i<8; ++i)
+		{
+			for(int j =0; j<8; ++j)
+			{
+				value+=pieces[j][i];
+			}
+		}
+		
+		return value;
+	}
 
 	public void move(Point source, Point target) {
 		
