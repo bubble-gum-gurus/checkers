@@ -14,7 +14,7 @@ import org.soen387.domain.checkerboard.mapper.CheckerBoardDataMapper;
 import org.soen387.domain.model.checkerboard.*;
 
 /**
- * Servlet implementation class ListGames
+ * Servlet implementation class ListGames 
  */
 @WebServlet("/ListGames")
 public class ListGames extends AbstractPageController implements Servlet {

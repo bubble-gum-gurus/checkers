@@ -16,4 +16,4 @@ build/
 hs_err_pid*
 
 bin/MyResources.properties
-/bin/
+bin/
