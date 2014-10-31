@@ -10,12 +10,7 @@
    <secondPlayer refid="${game.secondPlayer.id}" />
    <currentPlayer refid="${game.currentPlayer.id}" />
    <pieces>
-   ${game.pieces}
-   <!-- <c:forEach items="${game.pieces}" var="row"> 
-    	<c:forEach items="${row}" var="cc">                   
-        	<c:out value="${cc}"/>
-    	</c:forEach>
-	</c:forEach>-->
+   ${game}
    </pieces>
   </game>
 </checkers>
