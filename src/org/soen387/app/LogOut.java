@@ -40,7 +40,12 @@ public class LogOut extends AbstractPageController implements Servlet {
 		//
 		//But I don't start a transaction or deal with commit/rollback automatically... You gotta do that as
 		//appropriate!
-		AuthHelper.clearUser(request.getSession());
+		HttpSession session = request.getSession();
+		if ( ! AuthHelper.isLoggedIn(session)) {
+			ErrorHandler.error("not logged in", request, response);
+			return;
+		}
+		AuthHelper.clearUser(session);
 		request.getRequestDispatcher("/WEB-INF/jsp/xml/LogOut.jsp").forward(request, response);
 
 	}

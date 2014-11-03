@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.dsrg.soenea.domain.MapperException;
 import org.soen387.domain.challenge.mapper.ChallengeDataMapper;
 import org.soen387.domain.user.mapper.UserDataMapper;
+import org.soen387.domain.checkerboard.mapper.CheckerBoardDataMapper;
+import org.soen387.domain.model.checkerboard.ICheckerBoard;
 import org.soen387.domain.model.player.IPlayer;
 import org.soen387.domain.model.user.IUser;
 import org.soen387.domain.model.challenge.*;
@@ -69,6 +71,11 @@ public class ChallengeUser extends AbstractPageController implements Servlet {
 			}
 			
 			// check that the two players do not have an open game..
+			ICheckerBoard open_game = CheckerBoardDataMapper.find(challengeePlayer.getId(), challengerPlayer.getId());
+			if (open_game != null) {
+				ErrorHandler.error("game exists between users", request, response);
+				return;
+			}
 			
 			// make a challenge between the two users
 			IChallenge challenge = new Challenge(challengeePlayer, challengerPlayer);

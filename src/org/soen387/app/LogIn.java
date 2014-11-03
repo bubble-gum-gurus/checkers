@@ -52,12 +52,14 @@ public class LogIn extends AbstractPageController implements Servlet {
 		try {
 			if (AuthHelper.isLoggedIn(session)) {
 				ErrorHandler.error("already logged in", request, response);
+				return;
 			}
 			String username =  request.getParameter("username");
 			String password =  request.getParameter("password");
 			IUser user =  UserDataMapper.find(username, password);
 			if(user == null){
 				ErrorHandler.error("user not found", request, response);
+				return;
 			}
 			else{
 				AuthHelper.setUser(session, user);

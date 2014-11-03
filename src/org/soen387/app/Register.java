@@ -48,6 +48,7 @@ public class Register extends AbstractPageController implements Servlet {
 		HttpSession session = request.getSession();
 		if (AuthHelper.isLoggedIn(session)) {
 			ErrorHandler.error("already logged in", request, response);
+			return;
 		}
 		
 		
@@ -63,7 +64,6 @@ public class Register extends AbstractPageController implements Servlet {
 		String firstname= request.getParameter("firstname"); 
 		String lastname = request.getParameter("lastname");
 		String email 	= request.getParameter("email");
-		
 		
 		// create user
 		try {
