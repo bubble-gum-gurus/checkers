@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.dsrg.soenea.domain.MapperException;
 import org.soen387.app.helpers.ErrorHandler;
@@ -51,9 +52,9 @@ public class Register extends AbstractPageController implements Servlet {
 		// retrieve params
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		String firstname = request.getParameter("firstname"); 
+		String firstname= request.getParameter("firstname"); 
 		String lastname = request.getParameter("lastname");
-		String email = request.getParameter("email");
+		String email 	= request.getParameter("email");
 		
 		// create user
 		try {
@@ -64,6 +65,7 @@ public class Register extends AbstractPageController implements Servlet {
 			user.setPlayer(player);
 			UserDataMapper.update(user);
 			request.setAttribute("player", player);
+			
 			request.getRequestDispatcher("/WEB-INF/jsp/xml/Register.jsp").forward(request, response);
 		} catch (MapperException e) {
 			e.printStackTrace();

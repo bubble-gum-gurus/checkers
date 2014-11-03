@@ -6,14 +6,13 @@ import java.util.List;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
+
 
 import org.dsrg.soenea.domain.MapperException;
 import org.soen387.domain.user.mapper.UserDataMapper;
 import org.soen387.domain.model.user.User;
-
+import org.soen387.app.helpers.*;
 /**
  * Servlet implementation class ListUsers
  */
@@ -41,8 +40,7 @@ public class LogOut extends AbstractPageController implements Servlet {
 		//
 		//But I don't start a transaction or deal with commit/rollback automatically... You gotta do that as
 		//appropriate!
-		
-		request.getSession(true).invalidate();
+		request.setAttribute("user", null);
 		request.getRequestDispatcher("/WEB-INF/jsp/xml/LogOut.jsp").forward(request, response);
 
 	}

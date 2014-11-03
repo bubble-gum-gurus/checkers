@@ -9,11 +9,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.dsrg.soenea.domain.MapperException;
 import org.soen387.domain.user.mapper.UserDataMapper;
+import org.soen387.domain.model.player.IPlayer;
 import org.soen387.domain.model.user.IUser;
 import org.soen387.domain.model.user.User;
+import org.soen387.domain.player.mapper.PlayerDataMapper;
+import org.soen387.app.helpers.*;
 
 /**
  * Servlet implementation class ListUsers
@@ -41,22 +45,23 @@ public class LogIn extends AbstractPageController implements Servlet {
 		//DbRegistry.getConnection()
 		//
 		//But I don't start a transaction or deal with commit/rollback automatically... You gotta do that as
-		//appropriate!
+		//appropriate!"
 		
 		try {
+			
 			String username =  request.getParameter("username");
-			String password =  request.getParameter("password");
+			String password =  request.getParameter("username");
 			IUser user =  UserDataMapper.find(username, password);
 			if(user == null){
 				request.getRequestDispatcher("/WEB-INF/jsp/xml/error.jsp").forward(request, response);
 			}
 			else{
-				request.setAttribute("user", user);
+				
+				IPlayer player = PlayerDataMapper.find(1);
+				request.setAttribute("player", player);
 				request.getRequestDispatcher("/WEB-INF/jsp/xml/LogIn.jsp").forward(request, response);
 			}
-//			request.setAttribute("username", user);
-//			request.setAttribute("password", pass);
-//			request.getRequestDispatcher("/WEB-INF/jsp/xml/LogIn.jsp").forward(request, response);
+
 		} catch (MapperException e) {
 			e.printStackTrace();
 		}

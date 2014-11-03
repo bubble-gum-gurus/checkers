@@ -1,7 +1,5 @@
 package org.soen387.app.helpers;
-
-import javax.servlet.http.HttpSession;
-
+import javax.servlet.http.*;
 import org.dsrg.soenea.domain.MapperException;
 import org.soen387.domain.user.mapper.UserDataMapper;
 import org.soen387.domain.model.user.IUser;
