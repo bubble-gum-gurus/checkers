@@ -8,7 +8,7 @@ import org.soen387.domain.tx.gateway.TxGateway;
 
 public class Tx {
 	
-	public void start() throws TxException
+	public static void start() throws TxException
 	{
 		try {
 			TxGateway.startTransaction();
@@ -17,7 +17,7 @@ public class Tx {
 		}
 	}
 	
-	public void commit() throws TxException
+	public static void commit() throws TxException
 	{
 		try {
 			TxGateway.commit();
@@ -26,7 +26,7 @@ public class Tx {
 		}
 	}
 	
-	public void rollback() throws TxException
+	public static void rollback() throws TxException
 	{
 		try {
 			TxGateway.rollback();

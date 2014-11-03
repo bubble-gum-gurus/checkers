@@ -47,18 +47,21 @@ public class LogIn extends AbstractPageController implements Servlet {
 		//But I don't start a transaction or deal with commit/rollback automatically... You gotta do that as
 		//appropriate!"
 		
+		HttpSession session = request.getSession();
+		
 		try {
-			
+			if (AuthHelper.isLoggedIn(session)) {
+				ErrorHandler.error("already logged in", request, response);
+			}
 			String username =  request.getParameter("username");
-			String password =  request.getParameter("username");
+			String password =  request.getParameter("password");
 			IUser user =  UserDataMapper.find(username, password);
 			if(user == null){
-				request.getRequestDispatcher("/WEB-INF/jsp/xml/error.jsp").forward(request, response);
+				ErrorHandler.error("user not found", request, response);
 			}
 			else{
-				
-				IPlayer player = PlayerDataMapper.find(1);
-				request.setAttribute("player", player);
+				AuthHelper.setUser(session, user);
+				request.setAttribute("user", user);
 				request.getRequestDispatcher("/WEB-INF/jsp/xml/LogIn.jsp").forward(request, response);
 			}
 

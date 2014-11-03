@@ -7,7 +7,11 @@ import org.soen387.domain.model.user.IUser;
 public class AuthHelper {
 
 	public static IUser getUser(HttpSession session) throws UserNotFoundException {
-		long user_id = (Long) session.getAttribute("user");
+		Object o = session.getAttribute("user");
+		if (o == null) {
+			return null;
+		}
+		long user_id = (Long) o;
 		IUser user = null;
 		try {
 			user = UserDataMapper.find(user_id);
@@ -17,6 +21,10 @@ public class AuthHelper {
 			throw new UserNotFoundException(e);
 		}
 		return user;
+	}
+	
+	public static boolean isLoggedIn(HttpSession session) {
+		return session.getAttribute("user") != null;
 	}
 	
 	public static void setUser(HttpSession session, IUser user) {
