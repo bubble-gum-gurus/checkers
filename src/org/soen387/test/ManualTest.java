@@ -5,8 +5,6 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
-import org.soen387.test.Setup;
-import org.soen387.test.Teardown;
 
 public class ManualTest {
 
@@ -24,87 +22,6 @@ public class ManualTest {
 	 * 
 	 */
 	public static void main(String[] args) {
-		/*
-		 * 
-		 * This is the URL for your application. Note that it should have no trailing slash
-		 * 
-		 */
-		FieldMap.current.get().put("BASE_URL", "http://localhost:8080/CheckersGame");
-
-		/*
-		 * 
-		 * If you need a parameter to set it to return an xml response, fill it in here. This
-		 * defaults to what we've used in the tutorials, I think.
-		 * 
-		 */
-//		FieldMap.current.get().put("XML_PARAM", "mode");
-//		FieldMap.current.get().put("XML_VALUE", "xml");
-		
-		/*
-		 * 
-		 * Each of the Use Cases is represented by a PageController, effectively (though this system 
-		 * supports FrontControllers of some flavors as well as group PageControllers). Each Use Case
-		 * Needs it's path, starting with a slash. The names of parameters follow. UC 7 has an exception
-		 * In the event that you pass a different form of status, this supports the common variances I 
-		 * have seen. 
-		 * 
-		 */
-		
-		//UC 1
-		FieldMap.current.get().put("LOGIN_PATH", "/LogIn");
-		FieldMap.current.get().put("USERNAME_PARAM", "username");
-		FieldMap.current.get().put("PASSWORD_PARAM", "password");
-
-		//UC 2
-		FieldMap.current.get().put("LOGOUT_PATH", "/LogOut");
-		
-		
-		/*
-		 * 
-		 * Note that I use the same params for username and password
-		 * as in LogIn. If you're not doing so already, you should do so
-		 * 
-		 */
-		//UC 3
-		FieldMap.current.get().put("REGISTER_PATH", "/Register");
-		FieldMap.current.get().put("FIRSTNAME_PARAM", "firstName");
-		FieldMap.current.get().put("LASTNAME_PARAM", "lastName");
-		FieldMap.current.get().put("EMAIL_PARAM", "email");
-		
-		//UC 4
-		FieldMap.current.get().put("LIST_PLAYERS_PATH", "/ListPlayers");
-		
-		//UC 5
-		FieldMap.current.get().put("VIEW_PLAYER_STATS_PATH", "/ViewPlayerStats");
-		FieldMap.current.get().put("PLAYER_PARAM", "id");
-		
-		//UC 6		
-		FieldMap.current.get().put("CHALLENGE_PLAYER_PATH", "/ChallengePlayer");
-		FieldMap.current.get().put("TARGET_PLAYER_PARAM", "player");		
-		
-		/*
-		 * By default I accept a status and either 1 or 2, the ordinal values of the ChallengeStatus.
-		 * The testsuite responds either true or false for accepting, passing the acceptValue if
-		 * it is true and the refuseValue if it was false. This should provide enough flexibility.
-		 */
-		
-		//UC 7
-		FieldMap.current.get().put("RESPOND_TO_CHALLNGE_PATH", "/RespondToChallenge");
-		FieldMap.current.get().put("CHALLENGE_PARAM", "challenge");
-		FieldMap.current.get().put("CHALLENGE_VERSION_PARAM", "version");
-		FieldMap.current.get().put("CHALLENGE_RESPONSE_PARAM", "status");
-		FieldMap.current.get().put("CHALLENGE_ACCEPT_VALUE", "1");
-		FieldMap.current.get().put("CHALLENGE_REFUSE_VALUE", "2");
-		
-		//UC 8
-		FieldMap.current.get().put("LIST_GAMES_PATH", "/ListGames");
-		
-		//UC 9
-		FieldMap.current.get().put("VIEW_GAME_PATH", "/ViewGame");
-		FieldMap.current.get().put("GAME_PARAM", "id");
-		
-		//UC 10
-		FieldMap.current.get().put("LIST_CHALLENGES_PATH", "/ListChallenges");
 		
 		
 		/*
@@ -116,8 +33,8 @@ public class ManualTest {
 		 * 
 		 */
 		try {
-		Teardown.main(null);
-		Setup.main(null);
+			DBDestroy.run();
+			DBSetup.run();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
