@@ -1,3 +1,36 @@
+Use Cases Redux
+
+1. Log In
+ pre: user not logged in
+ post: user logged in
+2. Log Out
+ pre: user logged in
+ post: user not logged in
+
+3. Register User
+ pre: user not logged in
+ post: user logged in
+ 
+4. List Users
+
+5. View User Stats
+
+6. Challenge User
+ pre: user logged in
+      user has no open challenge with target user
+      user has no open game with target user
+
+7. Respond to User Challenge
+ pre: user logged in
+      user has been challenged
+
+8. List Games
+	  
+9. View Game
+
+10. View Challenges
+
+
 1. Log In
 
 <checkers>
@@ -118,4 +151,24 @@
   <currentPlayer refid="1" />
   <pieces>b b b b  b b b bb b b b                  r r r rr r r r  r r r r</pieces>
  </game>
+</checkers>
+
+10. View Challenges
+
+<checkers>
+	<status>success</status>
+	<challenges>
+		<challenge id="1" version="2" status="1">
+			<challenger refid="1" />
+			<challengee refid="2" />
+		</challenge>
+		<challenge id="2" version="2" status="1">
+			<challenger refid="1" />
+			<challengee refid="2" />
+		</challenge>
+		<challenge id="3" version="1" status="0">
+			<challenger refid="1" />
+			<challengee refid="3" />
+		</challenge>
+	</challenges>
 </checkers>
