@@ -30,7 +30,9 @@ import org.soen387.app.helpers.UserNotFoundException;
 @WebServlet("/ChallengePlayer")
 public class ChallengePlayer extends AbstractPageController implements Servlet {
        
-    /**
+	private static final long serialVersionUID = 1L;
+
+	/**
      * @see AbstractPageController#AbstractPageController()
      */
     public ChallengePlayer() {

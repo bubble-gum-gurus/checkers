@@ -46,10 +46,10 @@ public class Register extends AbstractPageController implements Servlet {
 		
 		// check if user is logged in
 		HttpSession session = request.getSession();
-		if (AuthHelper.isLoggedIn(session)) {
-			ErrorHandler.error("already logged in", request, response);
-			return;
-		}
+//		if (AuthHelper.isLoggedIn(session)) {
+//			ErrorHandler.error("already logged in", request, response);
+//			return;
+//		}
 		
 		
 		// check that the appropriate params were supplied
