@@ -25,7 +25,7 @@ public class ChallengeTDG {
 	public static final String UPDATE = "UPDATE " + TABLE_NAME + " "
 			+ "SET version=version+1, "
 			+ "status=?, "
-			+ "challengee=? "
+			+ "challengee=?, "
 			+ "challenger=? "
 			+ "WHERE id=? AND version=?;";
 	public static final String DELETE = "DELETE FROM " + TABLE_NAME + " "

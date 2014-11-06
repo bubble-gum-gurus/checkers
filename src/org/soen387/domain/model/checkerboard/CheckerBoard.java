@@ -2,13 +2,14 @@ package org.soen387.domain.model.checkerboard;
 
 import java.awt.Point;
 
+import org.soen387.domain.model.player.IPlayer;
 import org.soen387.domain.model.player.Player;
 
 public class CheckerBoard implements ICheckerBoard {
 
 	public CheckerBoard(long id, int version, GameStatus status,
-			char[][] pieces, Player firstPlayer, Player secondPlayer,
-			Player currentPlayer) {
+			char[][] pieces, IPlayer firstPlayer, IPlayer secondPlayer,
+			IPlayer currentPlayer) {
 		super();
 		this.id = id;
 		this.version = version;
@@ -17,6 +18,14 @@ public class CheckerBoard implements ICheckerBoard {
 		this.firstPlayer = firstPlayer;
 		this.secondPlayer = secondPlayer;
 		this.currentPlayer = currentPlayer;
+	}
+	
+	public CheckerBoard(IPlayer firstPlayer, IPlayer secondPlayer) {
+		pieces = new char[8][8];
+		status = GameStatus.Ongoing;
+		this.firstPlayer = firstPlayer;
+		this.secondPlayer = secondPlayer;
+		this.currentPlayer = firstPlayer;
 	}
 
 	public int getVersion() {
@@ -43,27 +52,27 @@ public class CheckerBoard implements ICheckerBoard {
 		this.pieces = pieces;
 	}
 
-	public Player getFirstPlayer() {
+	public IPlayer getFirstPlayer() {
 		return firstPlayer;
 	}
 
-	public void setFirstPlayer(Player firstPlayer) {
+	public void setFirstPlayer(IPlayer firstPlayer) {
 		this.firstPlayer = firstPlayer;
 	}
 
-	public Player getSecondPlayer() {
+	public IPlayer getSecondPlayer() {
 		return secondPlayer;
 	}
 
-	public void setSecondPlayer(Player secondPlayer) {
+	public void setSecondPlayer(IPlayer secondPlayer) {
 		this.secondPlayer = secondPlayer;
 	}
 
-	public Player getCurrentPlayer() {
+	public IPlayer getCurrentPlayer() {
 		return currentPlayer;
 	}
 
-	public void setCurrentPlayer(Player currentPlayer) {
+	public void setCurrentPlayer(IPlayer currentPlayer) {
 		this.currentPlayer = currentPlayer;
 	}
 
@@ -75,9 +84,9 @@ public class CheckerBoard implements ICheckerBoard {
 	int version;
 	GameStatus status;
 	char[][] pieces;
-	Player firstPlayer;
-	Player secondPlayer;
-	Player currentPlayer;
+	IPlayer firstPlayer;
+	IPlayer secondPlayer;
+	IPlayer currentPlayer;
 	
 	public String toString()
 	{

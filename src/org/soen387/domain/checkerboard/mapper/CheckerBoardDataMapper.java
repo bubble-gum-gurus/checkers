@@ -77,4 +77,12 @@ public class CheckerBoardDataMapper {
             throw new MapperException(e);
         }
 	}
+
+	public static void create(ICheckerBoard checkerboard) throws MapperException {
+		try {
+			CheckerBoardTDG.insert(0, checkerboard.getStatus().getId(), checkerboard.toString(), checkerboard.getFirstPlayer().getId(), checkerboard.getSecondPlayer().getId(), checkerboard.getCurrentPlayer().getId());
+		} catch (SQLException e) {
+			throw new MapperException(e);
+		}
+	}
 }

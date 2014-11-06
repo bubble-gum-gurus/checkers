@@ -5,9 +5,11 @@ import java.awt.Point;
 import org.soen387.domain.model.checkerboard.GameStatus;
 import org.soen387.domain.model.checkerboard.ICheckerBoard;
 import org.soen387.domain.model.checkerboard.CheckerBoard;
+import org.soen387.domain.model.player.IPlayer;
 import org.soen387.domain.model.player.Player;
 import org.soen387.domain.checkerboard.mapper.CheckerBoardDataMapper;
 import org.dsrg.soenea.domain.MapperException;
+
 import java.awt.Point;
 
 public class CheckerBoardProxy implements ICheckerBoard {
@@ -58,27 +60,27 @@ public class CheckerBoardProxy implements ICheckerBoard {
 		getInnerObject().setPieces(pieces);
 	}
 	
-	public Player getFirstPlayer() {
+	public IPlayer getFirstPlayer() {
 		return getInnerObject().getFirstPlayer();
 	}
 	
-	public void setFirstPlayer(Player firstPlayer) {
+	public void setFirstPlayer(IPlayer firstPlayer) {
 		getInnerObject().setFirstPlayer(firstPlayer);
 	}
 	
-	public Player getSecondPlayer() {
+	public IPlayer getSecondPlayer() {
 		return getInnerObject().getSecondPlayer();
 	}
 	
-	public void setSecondPlayer(Player secondPlayer) {
+	public void setSecondPlayer(IPlayer secondPlayer) {
 		getInnerObject().setSecondPlayer(secondPlayer);
 	}
-	
-	public Player getCurrentPlayer() {
+
+	public IPlayer getCurrentPlayer() {
 		return getInnerObject().getCurrentPlayer();
 	}
 	
-	public void setCurrentPlayer(Player currentPlayer) {
+	public void setCurrentPlayer(IPlayer currentPlayer) {
 		getInnerObject().setCurrentPlayer(currentPlayer);
 	}
 	
