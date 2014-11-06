@@ -22,6 +22,11 @@ public class CheckerBoard implements ICheckerBoard {
 	
 	public CheckerBoard(IPlayer firstPlayer, IPlayer secondPlayer) {
 		pieces = new char[8][8];
+		for (int i = 0; i < pieces.length; i++) {
+			for (int j = 0; j < pieces[i].length; j++) {
+				pieces[i][j] = 'e';
+			}
+		}
 		status = GameStatus.Ongoing;
 		this.firstPlayer = firstPlayer;
 		this.secondPlayer = secondPlayer;
