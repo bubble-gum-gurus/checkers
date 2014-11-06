@@ -33,7 +33,7 @@ public class FieldMap extends ThreadLocal<Map<String, String>> {
 		map.put("EMAIL_PARAM", "email");
 		
 		// list players
-		map.put("LIST_PLAYERS_PATH", "/ListPlayers");
+		map.put("LIST_PLAYERS_PATH", "/ListUsers");
 		
 		// view player stats
 		map.put("VIEW_PLAYER_STATS_PATH", "/ViewPlayerStats");
@@ -41,7 +41,7 @@ public class FieldMap extends ThreadLocal<Map<String, String>> {
 		
 		//UC 6		
 		map.put("CHALLENGE_PLAYER_PATH", "/ChallengePlayer");
-		map.put("TARGET_PLAYER_PARAM", "player");		
+		map.put("TARGET_PLAYER_PARAM", "id");		
 		
 		/*
 		 * By default I accept a status and either 1 or 2, the ordinal values of the ChallengeStatus.
