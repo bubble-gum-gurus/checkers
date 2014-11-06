@@ -1,8 +1,6 @@
 package org.soen387.app;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import org.dsrg.soenea.domain.MapperException;
 import org.soen387.domain.challenge.mapper.ChallengeDataMapper;
-import org.soen387.domain.user.mapper.UserDataMapper;
 import org.soen387.domain.checkerboard.mapper.CheckerBoardDataMapper;
 import org.soen387.domain.model.checkerboard.ICheckerBoard;
 import org.soen387.domain.model.player.IPlayer;
