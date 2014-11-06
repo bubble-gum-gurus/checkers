@@ -33,7 +33,7 @@ public class FieldMap extends ThreadLocal<Map<String, String>> {
 		map.put("EMAIL_PARAM", "email");
 		
 		// list players
-		map.put("LIST_PLAYERS_PATH", "/ListPlayers");
+		map.put("LIST_PLAYERS_PATH", "/ListUsers");
 		
 		// view player stats
 		map.put("VIEW_PLAYER_STATS_PATH", "/ViewPlayerStats");
