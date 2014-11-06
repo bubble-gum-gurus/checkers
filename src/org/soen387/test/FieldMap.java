@@ -50,7 +50,7 @@ public class FieldMap extends ThreadLocal<Map<String, String>> {
 		 */
 		
 		//UC 7
-		map.put("RESPOND_TO_CHALLNGE_PATH", "/RespondToUserChallenge");
+		map.put("RESPOND_TO_CHALLNGE_PATH", "/RespondToChallenge");
 		map.put("CHALLENGE_PARAM", "challenge");
 		map.put("CHALLENGE_VERSION_PARAM", "version");
 		map.put("CHALLENGE_RESPONSE_PARAM", "status");

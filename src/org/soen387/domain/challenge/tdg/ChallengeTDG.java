@@ -98,4 +98,12 @@ public class ChallengeTDG {
 		ps.setLong(4, user1);
 		return ps.executeQuery();
 	}
+
+	public static final String FIND_BY_CHALLENGEE = "SELECT * FROM " + TABLE_NAME + " WHERE challengee=?;";
+	public static ResultSet findByChallengee(long id) throws SQLException {
+		Connection con = DbRegistry.getDbConnection();
+		PreparedStatement ps = con.prepareStatement(FIND_BY_CHALLENGEE);
+		ps.setLong(1, id);
+		return ps.executeQuery();
+	}
 }

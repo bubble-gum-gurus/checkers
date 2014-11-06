@@ -64,7 +64,7 @@ public class ChallengeUser extends AbstractPageController implements Servlet {
 			
 			// check that the two users do not have an
 			// open challenge
-			IChallenge open_challenge = ChallengeDataMapper.find(challengeePlayer.getId(), challengerPlayer.getId());
+			IChallenge open_challenge = ChallengeDataMapper.find(challengeePlayer, challengerPlayer);
 			if (open_challenge != null) {
 				ErrorHandler.error("challenge exists between users", request, response);
 				return;

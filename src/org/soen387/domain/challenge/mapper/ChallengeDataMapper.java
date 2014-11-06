@@ -45,9 +45,23 @@ public class ChallengeDataMapper {
 		}
 	}
 	
-	public static IChallenge find(long user1_id, long user2_id) throws MapperException {
+	public static IChallenge find(IPlayer player1, IPlayer player2) throws MapperException {
 		try {
-			ResultSet rs = ChallengeTDG.find(user1_id, user2_id);
+			ResultSet rs = ChallengeTDG.find(player1.getId(), player2.getId());
+			List<IChallenge> collection = buildCollection(rs);
+			if (collection.isEmpty()) {
+				return null;
+			} else {
+				return collection.get(0);
+			}
+		} catch (SQLException e) {
+			throw new MapperException(e);
+		}
+	}
+	
+	public static IChallenge findByChallengee(IPlayer player) throws MapperException {
+		try {
+			ResultSet rs = ChallengeTDG.findByChallengee(player.getId());
 			List<IChallenge> collection = buildCollection(rs);
 			if (collection.isEmpty()) {
 				return null;
@@ -61,10 +75,21 @@ public class ChallengeDataMapper {
 	
 	public static IChallenge create(IChallenge challenge) throws MapperException {
 		try {
-			long challenger_id = challenge.getChallenger().getId();
-			long challengee_id = challenge.getChallengee().getId();
-			ChallengeTDG.insert(challenge.getStatus().getId(), challengee_id, challenger_id);
-			return find(challengee_id, challenger_id);
+			IPlayer challenger = challenge.getChallenger();
+			IPlayer challengee = challenge.getChallengee();
+			ChallengeTDG.insert(challenge.getStatus().getId(), challengee.getId(), challenger.getId());
+			return find(challengee, challenger);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new MapperException(e);
+		}
+	}
+
+	public static void update(IChallenge challenge) throws MapperException {
+		try {
+			int version = challenge.getVersion();
+			ChallengeTDG.update(challenge.getId(), version, challenge.getStatus().getId(), challenge.getChallengee().getId(), challenge.getChallenger().getId());
+			challenge.setVersion(version + 1);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new MapperException(e);
