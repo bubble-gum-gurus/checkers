@@ -10,6 +10,7 @@ import org.soen387.domain.checkerboard.tdg.CheckerBoardTDG;
 import org.soen387.domain.model.checkerboard.CheckerBoard;
 import org.soen387.domain.model.checkerboard.ICheckerBoard;
 import org.soen387.domain.model.checkerboard.GameStatus;
+import org.soen387.domain.model.player.IPlayer;
 import org.soen387.domain.model.player.Player;
 import org.soen387.domain.checkerboard.identitymap.CheckerBoardIdentityMap;
 
@@ -72,6 +73,15 @@ public class CheckerBoardDataMapper {
 	public static List<ICheckerBoard> findAll() throws MapperException {
         try {
             ResultSet rs = CheckerBoardTDG.findAll();
+            return buildCollection(rs);
+        } catch (SQLException e) {
+            throw new MapperException(e);
+        }
+	}
+	
+	public static List<ICheckerBoard> findAllForPlayer(IPlayer player) throws MapperException {
+        try {
+            ResultSet rs = CheckerBoardTDG.findAllForPlayer(player.getId());
             return buildCollection(rs);
         } catch (SQLException e) {
             throw new MapperException(e);

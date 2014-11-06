@@ -80,7 +80,7 @@ public class CheckerBoardTDG {
 		PreparedStatement ps = con.prepareStatement(UPDATE);
 		ps.setLong(1,id);
 		ps.setInt(2, version);
-		ps.setInt(3, status);
+		ps.setInt(3, status); 
 		ps.setString(4, pieces);
 		ps.setLong(5, first);
 		ps.setLong(6,  second);
@@ -114,5 +114,16 @@ public class CheckerBoardTDG {
 		PreparedStatement ps = con.prepareStatement(FIND_ALL);
 		return ps.executeQuery();
 	}
+	
+	public static final String FIND_ALL_FOR_PLAYER = "SELECT * FROM " + TABLE_NAME + " WHERE first_player=? OR second_player=?;";
+	public static ResultSet findAllForPlayer(long playerID) throws SQLException {
+		Connection con = DbRegistry.getDbConnection();
+		PreparedStatement ps = con.prepareStatement(FIND_ALL_FOR_PLAYER);
+		ps.setLong(1, playerID);
+		ps.setLong(2, playerID);
+		return ps.executeQuery();
+	
+	}
+
 	
 }

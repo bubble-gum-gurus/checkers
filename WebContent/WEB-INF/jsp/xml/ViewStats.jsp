@@ -6,19 +6,17 @@
 
 <checkers>
 <status>success</status>
-<player firstName="Stuart" lastName="Thiel" email="sthiel@encs.concordia.ca" id="1" version="1">
- <user username="sthiel" id="1" version="1">
+<player firstName="${user.player.firstName}" lastName="${user.player.lastName}" email="${user.player.email}" id="${user.player.id}" version="${user.player.version}">
+ <user username="${user.username}" id="${user.id}" version="${user.version}" />
  <games>
-  <game id="1" status="0">
-  <firstPlayer refid="1" />
-  <secondPlayer refid="2" />
-  <currentPlayer refid="1" />
-  </game>
-  <game id="2" status="1">
-  <firstPlayer refid="1" />
-  <secondPlayer refid="2" />
-  <currentPlayer refid="1" />
-  </game>
+ 	<c:forEach var="checkerBoard" items="${checkerBoardList}">
+  		<game id="${checkerBoard.id}" status="checkerBoard.status">
+  		<firstPlayer refid="${checkerBoard.firstPlayer.id}" />
+ 		<secondPlayer refid="${checkerBoard.secondPlayer.id}" />
+  		<currentPlayer refid="${checkerBoard.currentPlayer.id}" />
+  		</game>
+ 	 </c:forEach>
+  
  </games>
 </player>
 </checkers>

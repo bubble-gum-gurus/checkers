@@ -36,7 +36,7 @@ public class FieldMap extends ThreadLocal<Map<String, String>> {
 		map.put("LIST_PLAYERS_PATH", "/ListUsers");
 		
 		// view player stats
-		map.put("VIEW_PLAYER_STATS_PATH", "/ViewPlayerStats");
+		map.put("VIEW_PLAYER_STATS_PATH", "/ViewUserStats");
 		map.put("PLAYER_PARAM", "id");
 		
 		//UC 6		
