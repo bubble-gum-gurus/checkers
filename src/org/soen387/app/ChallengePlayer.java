@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.dsrg.soenea.domain.MapperException;
 import org.soen387.domain.challenge.mapper.ChallengeDataMapper;
@@ -17,19 +18,22 @@ import org.soen387.domain.model.checkerboard.ICheckerBoard;
 import org.soen387.domain.model.player.IPlayer;
 import org.soen387.domain.model.user.IUser;
 import org.soen387.domain.model.challenge.*;
+import org.soen387.domain.player.mapper.PlayerDataMapper;
+import org.soen387.app.helpers.AuthHelper;
 import org.soen387.app.helpers.ErrorHandler;
 import org.soen387.app.helpers.ParamChecker;
+import org.soen387.app.helpers.UserNotFoundException;
 
 /**
  * Servlet implementation class ListGames
  */
-@WebServlet("/ChallengeUser")
-public class ChallengeUser extends AbstractPageController implements Servlet {
+@WebServlet("/ChallengePlayer")
+public class ChallengePlayer extends AbstractPageController implements Servlet {
        
     /**
      * @see AbstractPageController#AbstractPageController()
      */
-    public ChallengeUser() {
+    public ChallengePlayer() {
         super();
     }
 
@@ -38,28 +42,37 @@ public class ChallengeUser extends AbstractPageController implements Servlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		
 		// check that appropriate params were supplied
-		String[] params = {"user"};
+		String[] params = {"id"};
 		if (!ParamChecker.checkParams(params, request, response)) {
 			return;
 		}
 		
 		// load params
-		long challengee_id = Long.valueOf(request.getParameter("user"));
+		long challengee_id = Long.valueOf(request.getParameter("id"));
+		
+		// get session
+		HttpSession session = request.getSession();
 		
 		try {
 			
-			// temporary load challenger until we have auth working
-			IUser challenger = UserDataMapper.find(9);
+			// check that the user is logged in
+			if (!AuthHelper.isLoggedIn(session)) {
+				ErrorHandler.error("not logged in", request, response);
+				return;
+			}
+			
+			// load challenger
+			IUser challenger = AuthHelper.getUser(session);
+			
 			
 			// check that user exists
-			IUser challengee = UserDataMapper.find(challengee_id);
-			if (challengee == null) {
-				ErrorHandler.error("user not found", request, response);
+			IPlayer challengeePlayer = PlayerDataMapper.find(challengee_id);
+			if (challengeePlayer == null) {
+				ErrorHandler.error("player not found", request, response);
 				return;
 			}
 			
 			// get the players
-			IPlayer challengeePlayer = challengee.getPlayer();
 			IPlayer challengerPlayer = challenger.getPlayer();
 			
 			// check that the two users do not have an
@@ -88,6 +101,9 @@ public class ChallengeUser extends AbstractPageController implements Servlet {
 		} catch (MapperException e) {
 
 			e.printStackTrace();
+		} catch (UserNotFoundException e) {
+			e.printStackTrace();
+			
 		}
 		
 	}
