@@ -25,7 +25,7 @@ public class ChallengeTDG {
 	public static final String UPDATE = "UPDATE " + TABLE_NAME + " "
 			+ "SET version=version+1, "
 			+ "status=?, "
-			+ "challengee=? "
+			+ "challengee=?, "
 			+ "challenger=? "
 			+ "WHERE id=? AND version=?;";
 	public static final String DELETE = "DELETE FROM " + TABLE_NAME + " "
@@ -104,6 +104,13 @@ public class ChallengeTDG {
 		Connection con = DbRegistry.getDbConnection();
 		PreparedStatement ps = con.prepareStatement(FIND_BY_CHALLENGEE);
 		ps.setLong(1, id);
+		return ps.executeQuery();
+	}
+	
+	public static final String FIND_ALL = "SELECT * FROM " + TABLE_NAME + ";";
+	public static ResultSet findAll () throws SQLException {
+		Connection con = DbRegistry.getDbConnection();
+		PreparedStatement ps = con.prepareStatement(FIND_ALL);
 		return ps.executeQuery();
 	}
 }

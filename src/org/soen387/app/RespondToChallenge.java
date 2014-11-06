@@ -16,8 +16,11 @@ import org.soen387.app.helpers.ErrorHandler;
 import org.soen387.app.helpers.ParamChecker;
 import org.soen387.app.helpers.UserNotFoundException;
 import org.soen387.domain.challenge.mapper.ChallengeDataMapper;
+import org.soen387.domain.checkerboard.mapper.CheckerBoardDataMapper;
 import org.soen387.domain.model.challenge.ChallengeStatus;
 import org.soen387.domain.model.challenge.IChallenge;
+import org.soen387.domain.model.checkerboard.CheckerBoard;
+import org.soen387.domain.model.checkerboard.ICheckerBoard;
 import org.soen387.domain.model.player.IPlayer;
 import org.soen387.domain.model.user.IUser;
 
@@ -71,9 +74,15 @@ public class RespondToChallenge extends AbstractPageController implements Servle
 				return;
 			}
 			
-			// validate that the challenge is for the curernt user
+			// validate that the challenge is for the current user
 			if (challenge.getChallengee().getId() != player.getId()) {
 				ErrorHandler.error("current user does not have permission to respond to this challenge", request, response);
+				return;
+			}
+			
+			// validate that the challenge is open
+			if (challenge.getStatus() != ChallengeStatus.Open) {
+				ErrorHandler.error("challenge is not open", request, response);
 				return;
 			}
 			
@@ -81,15 +90,21 @@ public class RespondToChallenge extends AbstractPageController implements Servle
 			challenge.setStatus(ChallengeStatus.values()[status]);
 			ChallengeDataMapper.update(challenge);
 			
+			// create the create a new game if status is approved
+			if (challenge.getStatus() == ChallengeStatus.Accepted) {
+				ICheckerBoard checkerboard = new CheckerBoard(challenge.getChallengee(), challenge.getChallenger());
+				CheckerBoardDataMapper.create(checkerboard);
+			}
+			
 			// forward to jsp
 			request.setAttribute("challenge", challenge);
 			request.getRequestDispatcher("/WEB-INF/jsp/xml/respondtochallenge.jsp").forward(request, response);
 			
 		} catch (MapperException e) {
 
-			ErrorHandler.error("errorz", request, response);
+			ErrorHandler.error(e.toString(), request, response);
 		} catch (UserNotFoundException e) {
-			
+			ErrorHandler.error(e.toString(), request, response);
 		}
 		
 	}
