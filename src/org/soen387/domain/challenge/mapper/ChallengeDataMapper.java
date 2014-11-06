@@ -95,4 +95,14 @@ public class ChallengeDataMapper {
 			throw new MapperException(e);
 		}
 	}
+	
+	public static List<IChallenge> findAll () throws MapperException {
+		try {
+			ResultSet rs = ChallengeTDG.findAll();
+			return buildCollection(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new MapperException(e);
+		}
+	}
 }

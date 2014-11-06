@@ -106,4 +106,11 @@ public class ChallengeTDG {
 		ps.setLong(1, id);
 		return ps.executeQuery();
 	}
+	
+	public static final String FIND_ALL = "SELECT * FROM " + TABLE_NAME + ";";
+	public static ResultSet findAll () throws SQLException {
+		Connection con = DbRegistry.getDbConnection();
+		PreparedStatement ps = con.prepareStatement(FIND_ALL);
+		return ps.executeQuery();
+	}
 }
