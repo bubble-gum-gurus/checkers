@@ -24,8 +24,25 @@ public class CheckerBoard implements ICheckerBoard {
 		pieces = new char[8][8];
 		for (int i = 0; i < pieces.length; i++) {
 			for (int j = 0; j < pieces[i].length; j++) {
-				pieces[i][j] = 'e';
+			//	"b b b b  b b b bb b b b                  r r r rr r r r  r r r r"
+			//	pieces[i][j] = 'e';
+				if(j == 0 && (i%2 == 0))
+					pieces[i][j] = 'b';
+				else if(j == 1 && (i%2 == 1))
+					pieces[i][j] = 'b';
+				else if(j == 2 && (i%2 == 0))
+					pieces[i][j] = 'b';
+				else if(j == 5 && (i%2 == 1))
+					pieces[i][j] = 'r';
+				else if(j == 6 && (i%2 == 0))
+					pieces[i][j] = 'r';
+				else if(j == 7 && (i%2 == 1))
+					pieces[i][j] = 'r';
+				else
+					pieces[i][j] = '\u0000';
 			}
+			//pieces[i][j] = ' ';
+			
 		}
 		status = GameStatus.Ongoing;
 		this.firstPlayer = firstPlayer;
@@ -100,7 +117,11 @@ public class CheckerBoard implements ICheckerBoard {
 		{
 			for(int j =0; j<8; ++j)
 			{
+				if(pieces[j][i] == '\0')
+					value+=" ";
+				else
 				value+=pieces[j][i];
+				
 			}
 		}
 		
