@@ -1,6 +1,7 @@
 package org.soen387.app;
 
 import java.io.IOException;
+
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,7 @@ import org.soen387.domain.model.checkerboard.ICheckerBoard;
 import org.soen387.domain.model.player.IPlayer;
 import org.soen387.domain.model.user.IUser;
 import org.soen387.domain.model.challenge.*;
+import org.soen387.domain.tx.*;
 import org.soen387.domain.player.mapper.PlayerDataMapper;
 import org.soen387.app.helpers.AuthHelper;
 import org.soen387.app.helpers.ErrorHandler;
@@ -53,7 +55,7 @@ public class ChallengePlayer extends AbstractPageController implements Servlet {
 		HttpSession session = request.getSession();
 		
 		try {
-			
+			Tx.start();
 			// check that the user is logged in
 			if (!AuthHelper.isLoggedIn(session)) {
 				ErrorHandler.error("not logged in", request, response);
@@ -98,11 +100,26 @@ public class ChallengePlayer extends AbstractPageController implements Servlet {
 			request.getRequestDispatcher("/WEB-INF/jsp/xml/challengeuser.jsp").forward(request, response);
 			
 		} catch (MapperException e) {
-
+			try {
+				Tx.rollback();
+			} catch (TxException e1) {
+				e1.printStackTrace();
+				ErrorHandler.error(e.toString(), request, response);
+			}
 			e.printStackTrace();
 		} catch (UserNotFoundException e) {
 			e.printStackTrace();
 			
+		} catch (TxException e) {
+			e.printStackTrace();
+			ErrorHandler.error(e.toString(), request, response);
+		}finally {
+			try {
+				Tx.commit();
+			} catch (TxException e) {
+				e.printStackTrace();
+				ErrorHandler.error(e.toString(), request, response);
+			}
 		}
 		
 	}

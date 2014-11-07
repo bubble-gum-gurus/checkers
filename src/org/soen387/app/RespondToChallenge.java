@@ -19,6 +19,7 @@ import org.soen387.domain.challenge.mapper.ChallengeDataMapper;
 import org.soen387.domain.checkerboard.mapper.CheckerBoardDataMapper;
 import org.soen387.domain.model.challenge.ChallengeStatus;
 import org.soen387.domain.model.challenge.IChallenge;
+import org.soen387.domain.tx.*;
 import org.soen387.domain.model.checkerboard.CheckerBoard;
 import org.soen387.domain.model.checkerboard.ICheckerBoard;
 import org.soen387.domain.model.player.IPlayer;
@@ -56,7 +57,7 @@ public class RespondToChallenge extends AbstractPageController implements Servle
 		HttpSession session = request.getSession();
 		
 		try {
-			
+			Tx.start();
 			// verify user is logged in
 			if(!AuthHelper.isLoggedIn(session)) {
 				ErrorHandler.error("not logged in", request, response);
@@ -101,10 +102,27 @@ public class RespondToChallenge extends AbstractPageController implements Servle
 			request.getRequestDispatcher("/WEB-INF/jsp/xml/respondtochallenge.jsp").forward(request, response);
 			
 		} catch (MapperException e) {
-
+			try {
+				Tx.rollback();
+			} catch (TxException e1) {
+				e1.printStackTrace();
+				ErrorHandler.error(e.toString(), request, response);
+			}
+			e.printStackTrace();
 			ErrorHandler.error(e.toString(), request, response);
 		} catch (UserNotFoundException e) {
+			e.printStackTrace();
 			ErrorHandler.error(e.toString(), request, response);
+		} catch (TxException e) {
+			e.printStackTrace();
+			ErrorHandler.error(e.toString(), request, response);
+		}finally {
+			try {
+				Tx.commit();
+			} catch (TxException e) {
+				e.printStackTrace();
+				ErrorHandler.error(e.toString(), request, response);
+			}
 		}
 		
 	}
